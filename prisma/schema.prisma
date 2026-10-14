@@ -1,0 +1,188 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Admin {
+  id      String @db.VarChar(36) @id @default(uuid())
+  nome    String @db.VarChar(60)
+  email   String @db.VarChar(100) @unique
+  senha   String @db.VarChar(60)
+
+  @@map("admins")
+}
+
+
+model Aluno {
+  id              Int      @id @default(autoincrement())
+  nome            String   @db.VarChar(100)
+  data_nascimento DateTime @db.Date
+  sexo            String   @db.VarChar(20)
+
+  // Responsável
+  nome_responsavel String @db.VarChar(100)
+  telefone         String @db.VarChar(20)
+  email            String @db.VarChar(100)
+
+  // Endereço
+  endereco    String  @db.VarChar(150)
+  numero      String  @db.VarChar(10)
+  complemento String? @db.VarChar(50)
+  bairro      String  @db.VarChar(50)
+  cidade      String  @db.VarChar(50)
+  cep         String  @db.VarChar(10)
+
+  // Turma
+  turmaId Int
+  turma   Turma @relation(fields: [turmaId], references: [id])
+
+  // Chamadas
+  chamadas Chamada[]
+
+  @@map("alunos")
+}
+
+
+model Funcionario {
+  id        Int    @id @default(autoincrement())
+  nome      String @db.VarChar(100)
+  cpf       String @unique @db.VarChar(14)
+  matricula String @unique @db.VarChar(20)
+  cargo     String @db.VarChar(50)
+  telefone  String @db.VarChar(20)
+  email     String @db.VarChar(100)
+  senha     String @db.VarChar(60)
+
+  // Endereço
+  endereco    String  @db.VarChar(150)
+  numero      String  @db.VarChar(10)
+  complemento String? @db.VarChar(50)
+  bairro      String  @db.VarChar(50)
+  cidade      String  @db.VarChar(50)
+  cep         String  @db.VarChar(10)
+
+  // Relação Professor x Turma
+  turmas TurmaProfessor[]
+
+  // Relação Professor x Sala
+  salas SalaProfessor[]
+
+  // Chamadas realizadas pelo professor
+  chamadas Chamada[]
+
+  @@map("funcionarios")
+}
+
+
+model Turma {
+  id         Int    @id @default(autoincrement())
+  nome       String @db.VarChar(50)
+  ano_letivo Int
+  turno      String @db.VarChar(20)
+
+  // Sala
+  salaId Int
+  sala   Sala @relation(fields: [salaId], references: [id])
+
+  capacidade Int
+
+  // Alunos
+  alunos Aluno[]
+
+  // Professores
+  professores TurmaProfessor[]
+
+  // Chamadas
+  chamadas Chamada[]
+
+  observacao String? @db.Text
+
+  @@map("turmas")
+}
+
+
+model Sala {
+  id         Int     @id @default(autoincrement())
+  nome       String  @db.VarChar(50)
+  numero     String  @db.VarChar(20) @unique
+  capacidade Int
+
+  andar  Int?
+  bloco  String? @db.VarChar(30)
+  tipo   String  @db.VarChar(30)
+
+  descricao String? @db.Text
+  ativa     Boolean @default(true)
+
+  // Turmas que utilizam a sala
+  turmas Turma[]
+
+  // Professores que utilizam a sala
+  professores SalaProfessor[]
+
+  @@map("salas")
+}
+
+
+model SalaProfessor {
+  id Int @id @default(autoincrement())
+
+  salaId       Int
+  funcionarioId Int
+
+  sala        Sala        @relation(fields: [salaId], references: [id])
+  funcionario Funcionario @relation(fields: [funcionarioId], references: [id])
+
+  @@unique([salaId, funcionarioId])
+  @@map("salas_professores")
+}
+
+
+model TurmaProfessor {
+  id Int @id @default(autoincrement())
+
+  turmaId       Int
+  funcionarioId Int
+
+  turma       Turma       @relation(fields: [turmaId], references: [id])
+  funcionario Funcionario @relation(fields: [funcionarioId], references: [id])
+
+  // Chamadas realizadas nessa relação Turma + Professor
+  chamadas Chamada[]
+
+  @@unique([turmaId, funcionarioId])
+  @@map("turmas_professores")
+}
+
+
+model Chamada {
+  id Int @id @default(autoincrement())
+
+  data DateTime @db.Date
+
+  // Situação do aluno
+  presente Boolean
+
+  // Aluno
+  alunoId Int
+  aluno   Aluno @relation(fields: [alunoId], references: [id])
+
+  // Turma
+  turmaId Int
+  turma   Turma @relation(fields: [turmaId], references: [id])
+
+  // Professor responsável pela chamada
+  funcionarioId Int
+  funcionario   Funcionario @relation(fields: [funcionarioId], references: [id])
+
+  // Relação específica entre professor e turma
+  turmaProfessorId Int
+  turmaProfessor   TurmaProfessor @relation(fields: [turmaProfessorId], references:  [id])
+
+  @@unique([alunoId, data])
+  @@map("chamadas")
+}

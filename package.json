@@ -1,0 +1,27 @@
+{
+  "name": "con_backend",
+  "version": "1.0.0",
+  "lockfileVersion": 3,
+  "requires": true,
+  "author": "",
+  "keywords": [],
+  "license": "ISC",
+  "type": "module",
+  "packages": {},
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.4.0",
+    "@types/pg": "^8.18.0",
+    "@types/swagger-ui-express": "^4.1.8",
+    "prisma": "^7.5.0",
+    "swagger-autogen": "^2.23.7",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "dev": "npx tsx watch src/server.ts",
+    "postinstall": "npx prisma generate",
+    "seed": "npx tsx prisma/seed.ts",
+    "start": "npx tsx src/server.ts"
+  }
+}
