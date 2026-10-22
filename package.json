@@ -23,5 +23,11 @@
     "postinstall": "npx prisma generate",
     "seed": "npx tsx prisma/seed.ts",
     "start": "npx tsx src/server.ts"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.10.1",
+    "@prisma/client": "^7.10.1",
+    "@types/bcrypt": "^6.0.0",
+    "bcrypt": "^6.0.0"
   }
 }
