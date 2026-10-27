@@ -9,6 +9,7 @@
   "type": "module",
   "packages": {},
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.4.0",
     "@types/pg": "^8.18.0",
@@ -28,6 +29,10 @@
     "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "^7.10.1",
     "@types/bcrypt": "^6.0.0",
-    "bcrypt": "^6.0.0"
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "zod": "^4.1.12"
   }
 }
