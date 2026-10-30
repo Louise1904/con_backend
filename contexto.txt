@@ -1,0 +1,157 @@
+CON – CHAMADA ONLINE
+
+1. O QUE É A CON?
+
+A CON (Chamada Online) é um sistema de gestão escolar desenvolvido para facilitar o registro de presença e ausência dos alunos, digitalizando o processo de chamada que normalmente é feito em papel.
+
+O objetivo é tornar a rotina de professores e diretores mais prática, organizada e eficiente, permitindo registrar as frequências dos alunos, consultar informações e exportar os dados para acompanhamento escolar.
+
+O sistema é voltado principalmente para uma EMEI (Escola Municipal de Educação Infantil), com foco nas necessidades de professores e diretores.
+
+2. PRINCIPAIS FUNCIONALIDADES
+
+2.1. Chamada digital
+- O professor seleciona a turma e a data.
+- O sistema exibe a lista de alunos da turma.
+- O professor marca presença ou ausência.
+- A chamada é salva para consulta posterior.
+- É possível consultar e corrigir registros, conforme as permissões.
+
+2.2. Cadastros escolares
+- Cadastro, edição e consulta de alunos.
+- Cadastro de funcionários e administradores.
+- Cadastro e organização de turmas.
+- Cadastro de salas com capacidade e situação ativa ou inativa.
+- Associação de professores às turmas.
+
+2.3. Relatórios de frequência
+- Quantidade de presenças e faltas por aluno.
+- Frequência por turma.
+- Filtros por data ou período.
+- Percentual de frequência.
+- Visão geral para a direção acompanhar a frequência escolar.
+
+2.4. Exportação de dados
+- Exportação dos registros em CSV.
+- Inclusão de nome do aluno, turma, data e situação da frequência.
+- Filtros por turma e período.
+- Conferência para garantir que os dados exportados correspondam aos registros salvos.
+
+3. ORDEM DE PRIORIDADE PARA O DESENVOLVIMENTO
+
+PRIORIDADE P0 – ESSENCIAL
+
+1. Estrutura do banco de dados e relacionamentos
+- Validar os modelos de Aluno, Funcionario, Admin, Turma e Sala.
+- Relacionar alunos às turmas.
+- Associar professores às turmas.
+- Criar uma estrutura consistente para registrar chamadas.
+- Validar os dados e as chaves estrangeiras.
+
+Motivo: todas as funcionalidades dependem de dados consistentes.
+
+2. Cadastros e gerenciamento
+- Implementar cadastro, edição, consulta e exclusão controlada de alunos.
+- Implementar cadastro de funcionários e administradores.
+- Implementar cadastro e organização de turmas.
+- Implementar cadastro de salas com capacidade e situação ativa ou inativa.
+- Associar professores às turmas.
+
+Motivo: a chamada precisa saber quais alunos pertencem a cada turma e quais professores podem registrar a frequência.
+
+3. Chamada digital completa
+- Selecionar turma e data.
+- Carregar automaticamente a lista de alunos.
+- Marcar presença ou ausência.
+- Salvar e confirmar a chamada.
+- Evitar duplicidade de registros indevidos.
+- Consultar chamadas anteriores.
+- Identificar o professor responsável pelo registro.
+
+Motivo: essa é a principal funcionalidade da CON e precisa funcionar corretamente antes da ampliação do sistema.
+
+PRIORIDADE P1 – ALTA
+
+4. Exportação de chamadas
+- Exportar os registros em CSV.
+- Incluir nome do aluno, turma, data e situação da frequência.
+- Permitir filtros por turma e período.
+- Garantir que os dados exportados correspondam aos registros salvos.
+
+5. Relatórios de frequência
+- Mostrar a quantidade de presenças e faltas.
+- Consultar a frequência por aluno e turma.
+- Filtrar por data ou período.
+- Calcular o percentual de frequência.
+- Apresentar uma visão geral para a direção.
+
+Motivo: os relatórios transformam os registros da chamada em informações úteis para o acompanhamento escolar.
+
+6. Login e permissões
+- Criar login seguro para funcionários e direção.
+- Definir permissões diferentes para professores e diretores.
+- Permitir que professores acessem suas turmas e registrem chamadas autorizadas.
+- Permitir que diretores gerenciem cadastros e consultem relatórios.
+- Armazenar senhas usando hash seguro, nunca em texto puro.
+
+Observação: a autenticação deve estar implementada antes de disponibilizar o sistema com dados reais de alunos. Seu desenvolvimento pode começar em paralelo com as etapas iniciais.
+
+PRIORIDADE P2 – EVOLUÇÃO FUTURA
+
+7. Melhorias e funcionalidades futuras
+- Histórico detalhado de alterações nas chamadas.
+- Alertas para frequência baixa.
+- Filtros e gráficos adicionais.
+- Registro de justificativas de ausência.
+- Agendamento da utilização das salas por horário.
+- Impressão de relatórios em PDF.
+
+4. SUGESTÃO DE BACKLOG
+
+CON-01 – Corrigir e validar o schema do Prisma. Prioridade: P0.
+CON-02 – Implementar os relacionamentos entre as tabelas. Prioridade: P0.
+CON-03 – Finalizar o CRUD de alunos. Prioridade: P0.
+CON-04 – Finalizar o CRUD de funcionários. Prioridade: P0.
+CON-05 – Implementar cadastro de turmas e salas. Prioridade: P0.
+CON-06 – Associar professores às turmas. Prioridade: P0.
+CON-07 – Registrar e salvar chamadas. Prioridade: P0.
+CON-08 – Consultar e editar chamadas anteriores. Prioridade: P0.
+CON-09 – Implementar login e permissões. Prioridade: P1, com início antecipado recomendado.
+CON-10 – Finalizar a exportação CSV. Prioridade: P1.
+CON-11 – Criar relatórios com filtros. Prioridade: P1.
+CON-12 – Implementar alertas e histórico avançado. Prioridade: P2.
+
+5. ORGANIZAÇÃO DA CHAMADA NO BANCO DE DADOS
+
+É recomendável separar a sessão de chamada dos registros individuais de frequência.
+
+SessaoChamada:
+- Data.
+- Turma.
+- Professor responsável.
+- Horário, quando necessário.
+
+RegistroFrequencia:
+- Sessão de chamada relacionada.
+- Aluno.
+- Situação da frequência, como presente ou ausente.
+
+Dessa forma, uma única sessão pode conter o registro de frequência de todos os alunos da turma. Essa organização também facilita evitar chamadas duplicadas para a mesma turma, data e horário, além de identificar quem realizou o registro.
+
+A capacidade da sala deve ser validada em relação à quantidade de alunos alocados, e não apenas preenchida manualmente sem conferência.
+
+6. PLANO DE AÇÃO RECOMENDADO
+
+1. Finalizar o banco de dados e validar os relacionamentos no Prisma.
+2. Concluir os cadastros e garantir que os alunos estejam vinculados às turmas.
+3. Fazer a chamada funcionar de ponta a ponta, incluindo gravação e consulta do histórico.
+4. Testar a exportação CSV com dados de teste.
+5. Criar um relatório simples de faltas e presenças por período.
+6. Revisar login, permissões e segurança antes de utilizar dados reais.
+7. Deixar gráficos avançados, alertas e funcionalidades extras para etapas posteriores.
+
+7. RECOMENDAÇÃO FINAL
+
+O foco da primeira versão da CON deve ser permitir cadastrar os dados escolares, realizar uma chamada corretamente, consultar o histórico e exportar os registros. Quando esse fluxo estiver estável, os relatórios serão uma evolução útil para a direção.
+
+É melhor desenvolver e testar essas funcionalidades essenciais antes de tentar implementar tudo ao mesmo tempo.

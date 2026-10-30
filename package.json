@@ -9,12 +9,19 @@
   "type": "module",
   "packages": {},
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
     "@types/node": "^25.4.0",
     "@types/pg": "^8.18.0",
+    "@types/supertest": "^7.2.1",
     "@types/swagger-ui-express": "^4.1.8",
+    "cross-env": "^10.1.0",
+    "jest": "^30.5.2",
     "prisma": "^7.5.0",
+    "supertest": "^7.3.1",
     "swagger-autogen": "^2.23.7",
+    "ts-jest": "^29.4.15",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
@@ -22,6 +29,17 @@
     "dev": "npx tsx watch src/server.ts",
     "postinstall": "npx prisma generate",
     "seed": "npx tsx prisma/seed.ts",
-    "start": "npx tsx src/server.ts"
+    "start": "npx tsx src/server.ts",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.10.1",
+    "@prisma/client": "^7.10.1",
+    "@types/bcrypt": "^6.0.0",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "zod": "^4.1.12"
   }
 }
