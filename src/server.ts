@@ -6,9 +6,13 @@ import { z } from "zod"
 import { prisma } from "../lib/prisma"
 import routesTurmas from "./routes/turmas"
 import routesFuncionarios from "./routes/funcionarios"
+import routesDisciplinas from "./routes/disciplinas"
+import routesAlunos from "./routes/alunos"
+import routesChamadas from "./routes/chamadas"
+import routesSalas from "./routes/salas"
 
 const app = express()
-const port = Number(process.env.PORT) || 3000
+const port = Number(process.env.PORT) || 3001
 
 const loginSchema = z.object({
   email: z.string().email("E-mail inválido"),
@@ -27,47 +31,39 @@ app.post("/api/login", async (req, res) => {
 
   const { email, senha } = valida.data
 
-  // Tenta autenticar como Admin (Diretor)
-  const admin = await prisma.admin.findUnique({ where: { email } })
-  if (admin) {
-    const senhaValida = await bcrypt.compare(senha, admin.senha)
-    if (senhaValida) {
+  try {
+    // Tenta autenticar como Admin (Diretor)
+    const admin = await prisma.admin.findUnique({ where: { email } })
+    if (admin && (await bcrypt.compare(senha, admin.senha))) {
       res.status(200).json({
         message: "Login realizado com sucesso",
-        user: {
-          id: admin.id,
-          email: admin.email,
-          tipo: "ADM",
-          nome: admin.nome,
-        },
+        user: { id: admin.id, email: admin.email, tipo: "ADM", nome: admin.nome },
       })
       return
     }
-  }
 
-  // Tenta autenticar como Funcionario (Professor)
-  const funcionario = await prisma.funcionario.findFirst({ where: { email } })
-  if (funcionario) {
-    const senhaValida = await bcrypt.compare(senha, funcionario.senha)
-    if (senhaValida) {
+    // Tenta autenticar como Funcionario (Professor)
+    const funcionario = await prisma.funcionario.findFirst({ where: { email } })
+    if (funcionario && (await bcrypt.compare(senha, funcionario.senha))) {
       res.status(200).json({
         message: "Login realizado com sucesso",
-        user: {
-          id: funcionario.id,
-          email: funcionario.email,
-          tipo: "PROFESSOR",
-          nome: funcionario.nome,
-        },
+        user: { id: funcionario.id, email: funcionario.email, tipo: "PROFESSOR", nome: funcionario.nome },
       })
       return
     }
-  }
 
-  res.status(401).json({ erro: "E-mail ou senha incorretos" })
+    res.status(401).json({ erro: "E-mail ou senha incorretos" })
+  } catch (error) {
+    res.status(500).json({ erro: "Não foi possível realizar o login", detalhe: error })
+  }
 })
 
 app.use("/api/turmas", routesTurmas)
 app.use("/api/funcionarios", routesFuncionarios)
+app.use("/api/disciplinas", routesDisciplinas)
+app.use("/api/alunos", routesAlunos)
+app.use("/api/chamadas", routesChamadas)
+app.use("/api/salas", routesSalas)
 
 app.get("/", (_req, res) => {
   res.send("API: CON - Chamada Online")
