@@ -19,6 +19,7 @@ model Admin {
 
 model Aluno {
   id              Int      @id @default(autoincrement())
+  matricula       String?  @unique @db.VarChar(20)
   nome            String   @db.VarChar(100)
   data_nascimento DateTime @db.Date
   sexo            String   @db.VarChar(20)
@@ -175,14 +176,36 @@ model Chamada {
   turmaId Int
   turma   Turma @relation(fields: [turmaId], references: [id])
 
+  // Disciplina da chamada
+  disciplinaId Int?
+  disciplina   Disciplina? @relation(fields: [disciplinaId], references: [id])
+
   // Professor responsável pela chamada
   funcionarioId Int
   funcionario   Funcionario @relation(fields: [funcionarioId], references: [id])
 
   // Relação específica entre professor e turma
   turmaProfessorId Int
-  turmaProfessor   TurmaProfessor @relation(fields: [turmaProfessorId], references:  [id])
+  turmaProfessor   TurmaProfessor @relation(fields: [turmaProfessorId], references: [id])
 
-  @@unique([alunoId, data])
+  // Um aluno só pode ter uma chamada por disciplina no mesmo dia
+  @@unique([alunoId, disciplinaId, data])
   @@map("chamadas")
+}
+
+
+model Disciplina {
+  id            Int      @id @default(autoincrement())
+  nome          String   @db.VarChar(100)
+  cargaHoraria  String?  @db.VarChar(20)
+  professorNome String?  @db.VarChar(100)
+  descricao     String?  @db.Text
+
+  // Chamadas feitas nesta disciplina
+  chamadas      Chamada[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("disciplinas")
 }

@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models.js'
-export type * from './prismaNamespace.js'
+export type * from '../models'
+export type * from './prismaNamespace'
 
 export const Decimal = runtime.Decimal
 
@@ -58,7 +58,8 @@ export const ModelName = {
   Sala: 'Sala',
   SalaProfessor: 'SalaProfessor',
   TurmaProfessor: 'TurmaProfessor',
-  Chamada: 'Chamada'
+  Chamada: 'Chamada',
+  Disciplina: 'Disciplina'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -89,6 +90,7 @@ export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof Ad
 
 export const AlunoScalarFieldEnum = {
   id: 'id',
+  matricula: 'matricula',
   nome: 'nome',
   data_nascimento: 'data_nascimento',
   sexo: 'sexo',
@@ -179,11 +181,25 @@ export const ChamadaScalarFieldEnum = {
   presente: 'presente',
   alunoId: 'alunoId',
   turmaId: 'turmaId',
+  disciplinaId: 'disciplinaId',
   funcionarioId: 'funcionarioId',
   turmaProfessorId: 'turmaProfessorId'
 } as const
 
 export type ChamadaScalarFieldEnum = (typeof ChamadaScalarFieldEnum)[keyof typeof ChamadaScalarFieldEnum]
+
+
+export const DisciplinaScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  cargaHoraria: 'cargaHoraria',
+  professorNome: 'professorNome',
+  descricao: 'descricao',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DisciplinaScalarFieldEnum = (typeof DisciplinaScalarFieldEnum)[keyof typeof DisciplinaScalarFieldEnum]
 
 
 export const SortOrder = {

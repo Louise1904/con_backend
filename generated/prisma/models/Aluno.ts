@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.js"
-import type * as Prisma from "../internal/prismaNamespace.js"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model Aluno
@@ -38,6 +38,7 @@ export type AlunoSumAggregateOutputType = {
 
 export type AlunoMinAggregateOutputType = {
   id: number | null
+  matricula: string | null
   nome: string | null
   data_nascimento: Date | null
   sexo: string | null
@@ -55,6 +56,7 @@ export type AlunoMinAggregateOutputType = {
 
 export type AlunoMaxAggregateOutputType = {
   id: number | null
+  matricula: string | null
   nome: string | null
   data_nascimento: Date | null
   sexo: string | null
@@ -72,6 +74,7 @@ export type AlunoMaxAggregateOutputType = {
 
 export type AlunoCountAggregateOutputType = {
   id: number
+  matricula: number
   nome: number
   data_nascimento: number
   sexo: number
@@ -101,6 +104,7 @@ export type AlunoSumAggregateInputType = {
 
 export type AlunoMinAggregateInputType = {
   id?: true
+  matricula?: true
   nome?: true
   data_nascimento?: true
   sexo?: true
@@ -118,6 +122,7 @@ export type AlunoMinAggregateInputType = {
 
 export type AlunoMaxAggregateInputType = {
   id?: true
+  matricula?: true
   nome?: true
   data_nascimento?: true
   sexo?: true
@@ -135,6 +140,7 @@ export type AlunoMaxAggregateInputType = {
 
 export type AlunoCountAggregateInputType = {
   id?: true
+  matricula?: true
   nome?: true
   data_nascimento?: true
   sexo?: true
@@ -239,6 +245,7 @@ export type AlunoGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 
 export type AlunoGroupByOutputType = {
   id: number
+  matricula: string | null
   nome: string
   data_nascimento: Date
   sexo: string
@@ -279,6 +286,7 @@ export type AlunoWhereInput = {
   OR?: Prisma.AlunoWhereInput[]
   NOT?: Prisma.AlunoWhereInput | Prisma.AlunoWhereInput[]
   id?: Prisma.IntFilter<"Aluno"> | number
+  matricula?: Prisma.StringNullableFilter<"Aluno"> | string | null
   nome?: Prisma.StringFilter<"Aluno"> | string
   data_nascimento?: Prisma.DateTimeFilter<"Aluno"> | Date | string
   sexo?: Prisma.StringFilter<"Aluno"> | string
@@ -298,6 +306,7 @@ export type AlunoWhereInput = {
 
 export type AlunoOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  matricula?: Prisma.SortOrderInput | Prisma.SortOrder
   nome?: Prisma.SortOrder
   data_nascimento?: Prisma.SortOrder
   sexo?: Prisma.SortOrder
@@ -317,6 +326,7 @@ export type AlunoOrderByWithRelationInput = {
 
 export type AlunoWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  matricula?: string
   AND?: Prisma.AlunoWhereInput | Prisma.AlunoWhereInput[]
   OR?: Prisma.AlunoWhereInput[]
   NOT?: Prisma.AlunoWhereInput | Prisma.AlunoWhereInput[]
@@ -335,10 +345,11 @@ export type AlunoWhereUniqueInput = Prisma.AtLeast<{
   turmaId?: Prisma.IntFilter<"Aluno"> | number
   turma?: Prisma.XOR<Prisma.TurmaScalarRelationFilter, Prisma.TurmaWhereInput>
   chamadas?: Prisma.ChamadaListRelationFilter
-}, "id">
+}, "id" | "matricula">
 
 export type AlunoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  matricula?: Prisma.SortOrderInput | Prisma.SortOrder
   nome?: Prisma.SortOrder
   data_nascimento?: Prisma.SortOrder
   sexo?: Prisma.SortOrder
@@ -364,6 +375,7 @@ export type AlunoScalarWhereWithAggregatesInput = {
   OR?: Prisma.AlunoScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AlunoScalarWhereWithAggregatesInput | Prisma.AlunoScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Aluno"> | number
+  matricula?: Prisma.StringNullableWithAggregatesFilter<"Aluno"> | string | null
   nome?: Prisma.StringWithAggregatesFilter<"Aluno"> | string
   data_nascimento?: Prisma.DateTimeWithAggregatesFilter<"Aluno"> | Date | string
   sexo?: Prisma.StringWithAggregatesFilter<"Aluno"> | string
@@ -380,6 +392,7 @@ export type AlunoScalarWhereWithAggregatesInput = {
 }
 
 export type AlunoCreateInput = {
+  matricula?: string | null
   nome: string
   data_nascimento: Date | string
   sexo: string
@@ -398,6 +411,7 @@ export type AlunoCreateInput = {
 
 export type AlunoUncheckedCreateInput = {
   id?: number
+  matricula?: string | null
   nome: string
   data_nascimento: Date | string
   sexo: string
@@ -415,6 +429,7 @@ export type AlunoUncheckedCreateInput = {
 }
 
 export type AlunoUpdateInput = {
+  matricula?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   data_nascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sexo?: Prisma.StringFieldUpdateOperationsInput | string
@@ -433,6 +448,7 @@ export type AlunoUpdateInput = {
 
 export type AlunoUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  matricula?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   data_nascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sexo?: Prisma.StringFieldUpdateOperationsInput | string
@@ -451,6 +467,7 @@ export type AlunoUncheckedUpdateInput = {
 
 export type AlunoCreateManyInput = {
   id?: number
+  matricula?: string | null
   nome: string
   data_nascimento: Date | string
   sexo: string
@@ -467,6 +484,7 @@ export type AlunoCreateManyInput = {
 }
 
 export type AlunoUpdateManyMutationInput = {
+  matricula?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   data_nascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sexo?: Prisma.StringFieldUpdateOperationsInput | string
@@ -483,6 +501,7 @@ export type AlunoUpdateManyMutationInput = {
 
 export type AlunoUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  matricula?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   data_nascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sexo?: Prisma.StringFieldUpdateOperationsInput | string
@@ -500,6 +519,7 @@ export type AlunoUncheckedUpdateManyInput = {
 
 export type AlunoCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  matricula?: Prisma.SortOrder
   nome?: Prisma.SortOrder
   data_nascimento?: Prisma.SortOrder
   sexo?: Prisma.SortOrder
@@ -522,6 +542,7 @@ export type AlunoAvgOrderByAggregateInput = {
 
 export type AlunoMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  matricula?: Prisma.SortOrder
   nome?: Prisma.SortOrder
   data_nascimento?: Prisma.SortOrder
   sexo?: Prisma.SortOrder
@@ -539,6 +560,7 @@ export type AlunoMaxOrderByAggregateInput = {
 
 export type AlunoMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  matricula?: Prisma.SortOrder
   nome?: Prisma.SortOrder
   data_nascimento?: Prisma.SortOrder
   sexo?: Prisma.SortOrder
@@ -574,12 +596,12 @@ export type AlunoScalarRelationFilter = {
   isNot?: Prisma.AlunoWhereInput
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -647,6 +669,7 @@ export type AlunoUpdateOneRequiredWithoutChamadasNestedInput = {
 }
 
 export type AlunoCreateWithoutTurmaInput = {
+  matricula?: string | null
   nome: string
   data_nascimento: Date | string
   sexo: string
@@ -664,6 +687,7 @@ export type AlunoCreateWithoutTurmaInput = {
 
 export type AlunoUncheckedCreateWithoutTurmaInput = {
   id?: number
+  matricula?: string | null
   nome: string
   data_nascimento: Date | string
   sexo: string
@@ -710,6 +734,7 @@ export type AlunoScalarWhereInput = {
   OR?: Prisma.AlunoScalarWhereInput[]
   NOT?: Prisma.AlunoScalarWhereInput | Prisma.AlunoScalarWhereInput[]
   id?: Prisma.IntFilter<"Aluno"> | number
+  matricula?: Prisma.StringNullableFilter<"Aluno"> | string | null
   nome?: Prisma.StringFilter<"Aluno"> | string
   data_nascimento?: Prisma.DateTimeFilter<"Aluno"> | Date | string
   sexo?: Prisma.StringFilter<"Aluno"> | string
@@ -726,6 +751,7 @@ export type AlunoScalarWhereInput = {
 }
 
 export type AlunoCreateWithoutChamadasInput = {
+  matricula?: string | null
   nome: string
   data_nascimento: Date | string
   sexo: string
@@ -743,6 +769,7 @@ export type AlunoCreateWithoutChamadasInput = {
 
 export type AlunoUncheckedCreateWithoutChamadasInput = {
   id?: number
+  matricula?: string | null
   nome: string
   data_nascimento: Date | string
   sexo: string
@@ -775,6 +802,7 @@ export type AlunoUpdateToOneWithWhereWithoutChamadasInput = {
 }
 
 export type AlunoUpdateWithoutChamadasInput = {
+  matricula?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   data_nascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sexo?: Prisma.StringFieldUpdateOperationsInput | string
@@ -792,6 +820,7 @@ export type AlunoUpdateWithoutChamadasInput = {
 
 export type AlunoUncheckedUpdateWithoutChamadasInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  matricula?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   data_nascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sexo?: Prisma.StringFieldUpdateOperationsInput | string
@@ -809,6 +838,7 @@ export type AlunoUncheckedUpdateWithoutChamadasInput = {
 
 export type AlunoCreateManyTurmaInput = {
   id?: number
+  matricula?: string | null
   nome: string
   data_nascimento: Date | string
   sexo: string
@@ -824,6 +854,7 @@ export type AlunoCreateManyTurmaInput = {
 }
 
 export type AlunoUpdateWithoutTurmaInput = {
+  matricula?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   data_nascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sexo?: Prisma.StringFieldUpdateOperationsInput | string
@@ -841,6 +872,7 @@ export type AlunoUpdateWithoutTurmaInput = {
 
 export type AlunoUncheckedUpdateWithoutTurmaInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  matricula?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   data_nascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sexo?: Prisma.StringFieldUpdateOperationsInput | string
@@ -858,6 +890,7 @@ export type AlunoUncheckedUpdateWithoutTurmaInput = {
 
 export type AlunoUncheckedUpdateManyWithoutTurmaInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  matricula?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   data_nascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sexo?: Prisma.StringFieldUpdateOperationsInput | string
@@ -905,6 +938,7 @@ export type AlunoCountOutputTypeCountChamadasArgs<ExtArgs extends runtime.Types.
 
 export type AlunoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  matricula?: boolean
   nome?: boolean
   data_nascimento?: boolean
   sexo?: boolean
@@ -925,6 +959,7 @@ export type AlunoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 
 export type AlunoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  matricula?: boolean
   nome?: boolean
   data_nascimento?: boolean
   sexo?: boolean
@@ -943,6 +978,7 @@ export type AlunoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 
 export type AlunoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  matricula?: boolean
   nome?: boolean
   data_nascimento?: boolean
   sexo?: boolean
@@ -961,6 +997,7 @@ export type AlunoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 
 export type AlunoSelectScalar = {
   id?: boolean
+  matricula?: boolean
   nome?: boolean
   data_nascimento?: boolean
   sexo?: boolean
@@ -976,7 +1013,7 @@ export type AlunoSelectScalar = {
   turmaId?: boolean
 }
 
-export type AlunoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nome" | "data_nascimento" | "sexo" | "nome_responsavel" | "telefone" | "email" | "endereco" | "numero" | "complemento" | "bairro" | "cidade" | "cep" | "turmaId", ExtArgs["result"]["aluno"]>
+export type AlunoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "matricula" | "nome" | "data_nascimento" | "sexo" | "nome_responsavel" | "telefone" | "email" | "endereco" | "numero" | "complemento" | "bairro" | "cidade" | "cep" | "turmaId", ExtArgs["result"]["aluno"]>
 export type AlunoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   turma?: boolean | Prisma.TurmaDefaultArgs<ExtArgs>
   chamadas?: boolean | Prisma.Aluno$chamadasArgs<ExtArgs>
@@ -997,6 +1034,7 @@ export type $AlunoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    matricula: string | null
     nome: string
     data_nascimento: Date
     sexo: string
@@ -1436,6 +1474,7 @@ export interface Prisma__AlunoClient<T, Null = never, ExtArgs extends runtime.Ty
  */
 export interface AlunoFieldRefs {
   readonly id: Prisma.FieldRef<"Aluno", 'Int'>
+  readonly matricula: Prisma.FieldRef<"Aluno", 'String'>
   readonly nome: Prisma.FieldRef<"Aluno", 'String'>
   readonly data_nascimento: Prisma.FieldRef<"Aluno", 'DateTime'>
   readonly sexo: Prisma.FieldRef<"Aluno", 'String'>

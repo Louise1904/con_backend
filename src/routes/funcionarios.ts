@@ -1,4 +1,5 @@
 import { Router } from "express"
+import bcrypt from "bcrypt"
 import { z } from "zod"
 import { prisma } from "../../lib/prisma"
 
@@ -6,7 +7,14 @@ const router = Router()
 
 const funcionarioSchema = z.object({
   nome: z.string().trim().min(3, "Nome é obrigatório").max(100),
-  cpf: z.string().trim().min(14, "CPF é obrigatório").max(14),
+  cpf: z
+    .string()
+    .trim()
+    .transform((valor) => valor.replace(/\D/g, "")) // tira tudo que não é número
+    .refine((valor) => valor.length === 11, "CPF deve ter 11 dígitos")
+    .transform((valor) =>
+      valor.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"), // 11122233344 -> 111.222.333-44
+    ),
   matricula: z.string().trim().min(1, "Matrícula é obrigatória").max(20),
   cargo: z.string().trim().min(1, "Cargo é obrigatório").max(50),
   telefone: z.string().trim().min(1, "Telefone é obrigatório").max(20),
@@ -17,7 +25,12 @@ const funcionarioSchema = z.object({
   complemento: z.string().trim().max(100).optional(),
   bairro: z.string().trim().min(1, "Bairro é obrigatório").max(50),
   cidade: z.string().trim().min(1, "Cidade é obrigatória").max(50),
-  cep: z.string().trim().min(8, "CEP é obrigatório(8 dígitos)").max(8),
+  cep: z
+    .string()
+    .trim()
+    .transform((valor) => valor.replace(/\D/g, "")) // aceita com ou sem traço
+    .refine((valor) => valor.length === 8, "CEP deve ter 8 dígitos")
+    .transform((valor) => valor.replace(/(\d{5})(\d{3})/, "$1-$2")), // 01000000 -> 01000-000
 })
 
 const funcionarioUpdateSchema = funcionarioSchema.partial()
@@ -147,8 +160,11 @@ router.post("/", async (req, res) => {
   }
 
   try {
+    // Criptografa a senha antes de salvar (o login usa bcrypt.compare)
+    const senhaHash = await bcrypt.hash(valida.data.senha, 12)
+
     const funcionario = await prisma.funcionario.create({
-      data: valida.data,
+      data: { ...valida.data, senha: senhaHash },
       include: funcionarioInclude,
     })
 
@@ -203,6 +219,11 @@ router.put("/:id", async (req, res) => {
         res.status(erroEmail.status).json({ erro: erroEmail.erro })
         return
       }
+    }
+
+    // Se a senha foi enviada na edição, criptografa também
+    if (valida.data.senha) {
+      valida.data.senha = await bcrypt.hash(valida.data.senha, 12)
     }
 
     const funcionario = await prisma.funcionario.update({

@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.js"
-import type * as Prisma from "../internal/prismaNamespace.js"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model Chamada
@@ -30,6 +30,7 @@ export type ChamadaAvgAggregateOutputType = {
   id: number | null
   alunoId: number | null
   turmaId: number | null
+  disciplinaId: number | null
   funcionarioId: number | null
   turmaProfessorId: number | null
 }
@@ -38,6 +39,7 @@ export type ChamadaSumAggregateOutputType = {
   id: number | null
   alunoId: number | null
   turmaId: number | null
+  disciplinaId: number | null
   funcionarioId: number | null
   turmaProfessorId: number | null
 }
@@ -48,6 +50,7 @@ export type ChamadaMinAggregateOutputType = {
   presente: boolean | null
   alunoId: number | null
   turmaId: number | null
+  disciplinaId: number | null
   funcionarioId: number | null
   turmaProfessorId: number | null
 }
@@ -58,6 +61,7 @@ export type ChamadaMaxAggregateOutputType = {
   presente: boolean | null
   alunoId: number | null
   turmaId: number | null
+  disciplinaId: number | null
   funcionarioId: number | null
   turmaProfessorId: number | null
 }
@@ -68,6 +72,7 @@ export type ChamadaCountAggregateOutputType = {
   presente: number
   alunoId: number
   turmaId: number
+  disciplinaId: number
   funcionarioId: number
   turmaProfessorId: number
   _all: number
@@ -78,6 +83,7 @@ export type ChamadaAvgAggregateInputType = {
   id?: true
   alunoId?: true
   turmaId?: true
+  disciplinaId?: true
   funcionarioId?: true
   turmaProfessorId?: true
 }
@@ -86,6 +92,7 @@ export type ChamadaSumAggregateInputType = {
   id?: true
   alunoId?: true
   turmaId?: true
+  disciplinaId?: true
   funcionarioId?: true
   turmaProfessorId?: true
 }
@@ -96,6 +103,7 @@ export type ChamadaMinAggregateInputType = {
   presente?: true
   alunoId?: true
   turmaId?: true
+  disciplinaId?: true
   funcionarioId?: true
   turmaProfessorId?: true
 }
@@ -106,6 +114,7 @@ export type ChamadaMaxAggregateInputType = {
   presente?: true
   alunoId?: true
   turmaId?: true
+  disciplinaId?: true
   funcionarioId?: true
   turmaProfessorId?: true
 }
@@ -116,6 +125,7 @@ export type ChamadaCountAggregateInputType = {
   presente?: true
   alunoId?: true
   turmaId?: true
+  disciplinaId?: true
   funcionarioId?: true
   turmaProfessorId?: true
   _all?: true
@@ -213,6 +223,7 @@ export type ChamadaGroupByOutputType = {
   presente: boolean
   alunoId: number
   turmaId: number
+  disciplinaId: number | null
   funcionarioId: number
   turmaProfessorId: number
   _count: ChamadaCountAggregateOutputType | null
@@ -246,10 +257,12 @@ export type ChamadaWhereInput = {
   presente?: Prisma.BoolFilter<"Chamada"> | boolean
   alunoId?: Prisma.IntFilter<"Chamada"> | number
   turmaId?: Prisma.IntFilter<"Chamada"> | number
+  disciplinaId?: Prisma.IntNullableFilter<"Chamada"> | number | null
   funcionarioId?: Prisma.IntFilter<"Chamada"> | number
   turmaProfessorId?: Prisma.IntFilter<"Chamada"> | number
   aluno?: Prisma.XOR<Prisma.AlunoScalarRelationFilter, Prisma.AlunoWhereInput>
   turma?: Prisma.XOR<Prisma.TurmaScalarRelationFilter, Prisma.TurmaWhereInput>
+  disciplina?: Prisma.XOR<Prisma.DisciplinaNullableScalarRelationFilter, Prisma.DisciplinaWhereInput> | null
   funcionario?: Prisma.XOR<Prisma.FuncionarioScalarRelationFilter, Prisma.FuncionarioWhereInput>
   turmaProfessor?: Prisma.XOR<Prisma.TurmaProfessorScalarRelationFilter, Prisma.TurmaProfessorWhereInput>
 }
@@ -260,17 +273,19 @@ export type ChamadaOrderByWithRelationInput = {
   presente?: Prisma.SortOrder
   alunoId?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrderInput | Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
   turmaProfessorId?: Prisma.SortOrder
   aluno?: Prisma.AlunoOrderByWithRelationInput
   turma?: Prisma.TurmaOrderByWithRelationInput
+  disciplina?: Prisma.DisciplinaOrderByWithRelationInput
   funcionario?: Prisma.FuncionarioOrderByWithRelationInput
   turmaProfessor?: Prisma.TurmaProfessorOrderByWithRelationInput
 }
 
 export type ChamadaWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  alunoId_data?: Prisma.ChamadaAlunoIdDataCompoundUniqueInput
+  alunoId_disciplinaId_data?: Prisma.ChamadaAlunoIdDisciplinaIdDataCompoundUniqueInput
   AND?: Prisma.ChamadaWhereInput | Prisma.ChamadaWhereInput[]
   OR?: Prisma.ChamadaWhereInput[]
   NOT?: Prisma.ChamadaWhereInput | Prisma.ChamadaWhereInput[]
@@ -278,13 +293,15 @@ export type ChamadaWhereUniqueInput = Prisma.AtLeast<{
   presente?: Prisma.BoolFilter<"Chamada"> | boolean
   alunoId?: Prisma.IntFilter<"Chamada"> | number
   turmaId?: Prisma.IntFilter<"Chamada"> | number
+  disciplinaId?: Prisma.IntNullableFilter<"Chamada"> | number | null
   funcionarioId?: Prisma.IntFilter<"Chamada"> | number
   turmaProfessorId?: Prisma.IntFilter<"Chamada"> | number
   aluno?: Prisma.XOR<Prisma.AlunoScalarRelationFilter, Prisma.AlunoWhereInput>
   turma?: Prisma.XOR<Prisma.TurmaScalarRelationFilter, Prisma.TurmaWhereInput>
+  disciplina?: Prisma.XOR<Prisma.DisciplinaNullableScalarRelationFilter, Prisma.DisciplinaWhereInput> | null
   funcionario?: Prisma.XOR<Prisma.FuncionarioScalarRelationFilter, Prisma.FuncionarioWhereInput>
   turmaProfessor?: Prisma.XOR<Prisma.TurmaProfessorScalarRelationFilter, Prisma.TurmaProfessorWhereInput>
-}, "id" | "alunoId_data">
+}, "id" | "alunoId_disciplinaId_data">
 
 export type ChamadaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -292,6 +309,7 @@ export type ChamadaOrderByWithAggregationInput = {
   presente?: Prisma.SortOrder
   alunoId?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrderInput | Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
   turmaProfessorId?: Prisma.SortOrder
   _count?: Prisma.ChamadaCountOrderByAggregateInput
@@ -310,6 +328,7 @@ export type ChamadaScalarWhereWithAggregatesInput = {
   presente?: Prisma.BoolWithAggregatesFilter<"Chamada"> | boolean
   alunoId?: Prisma.IntWithAggregatesFilter<"Chamada"> | number
   turmaId?: Prisma.IntWithAggregatesFilter<"Chamada"> | number
+  disciplinaId?: Prisma.IntNullableWithAggregatesFilter<"Chamada"> | number | null
   funcionarioId?: Prisma.IntWithAggregatesFilter<"Chamada"> | number
   turmaProfessorId?: Prisma.IntWithAggregatesFilter<"Chamada"> | number
 }
@@ -319,6 +338,7 @@ export type ChamadaCreateInput = {
   presente: boolean
   aluno: Prisma.AlunoCreateNestedOneWithoutChamadasInput
   turma: Prisma.TurmaCreateNestedOneWithoutChamadasInput
+  disciplina?: Prisma.DisciplinaCreateNestedOneWithoutChamadasInput
   funcionario: Prisma.FuncionarioCreateNestedOneWithoutChamadasInput
   turmaProfessor: Prisma.TurmaProfessorCreateNestedOneWithoutChamadasInput
 }
@@ -329,6 +349,7 @@ export type ChamadaUncheckedCreateInput = {
   presente: boolean
   alunoId: number
   turmaId: number
+  disciplinaId?: number | null
   funcionarioId: number
   turmaProfessorId: number
 }
@@ -338,6 +359,7 @@ export type ChamadaUpdateInput = {
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   aluno?: Prisma.AlunoUpdateOneRequiredWithoutChamadasNestedInput
   turma?: Prisma.TurmaUpdateOneRequiredWithoutChamadasNestedInput
+  disciplina?: Prisma.DisciplinaUpdateOneWithoutChamadasNestedInput
   funcionario?: Prisma.FuncionarioUpdateOneRequiredWithoutChamadasNestedInput
   turmaProfessor?: Prisma.TurmaProfessorUpdateOneRequiredWithoutChamadasNestedInput
 }
@@ -348,6 +370,7 @@ export type ChamadaUncheckedUpdateInput = {
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alunoId?: Prisma.IntFieldUpdateOperationsInput | number
   turmaId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
   turmaProfessorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -358,6 +381,7 @@ export type ChamadaCreateManyInput = {
   presente: boolean
   alunoId: number
   turmaId: number
+  disciplinaId?: number | null
   funcionarioId: number
   turmaProfessorId: number
 }
@@ -373,6 +397,7 @@ export type ChamadaUncheckedUpdateManyInput = {
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alunoId?: Prisma.IntFieldUpdateOperationsInput | number
   turmaId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
   turmaProfessorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -387,8 +412,9 @@ export type ChamadaOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ChamadaAlunoIdDataCompoundUniqueInput = {
+export type ChamadaAlunoIdDisciplinaIdDataCompoundUniqueInput = {
   alunoId: number
+  disciplinaId: number
   data: Date | string
 }
 
@@ -398,6 +424,7 @@ export type ChamadaCountOrderByAggregateInput = {
   presente?: Prisma.SortOrder
   alunoId?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
   turmaProfessorId?: Prisma.SortOrder
 }
@@ -406,6 +433,7 @@ export type ChamadaAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   alunoId?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
   turmaProfessorId?: Prisma.SortOrder
 }
@@ -416,6 +444,7 @@ export type ChamadaMaxOrderByAggregateInput = {
   presente?: Prisma.SortOrder
   alunoId?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
   turmaProfessorId?: Prisma.SortOrder
 }
@@ -426,6 +455,7 @@ export type ChamadaMinOrderByAggregateInput = {
   presente?: Prisma.SortOrder
   alunoId?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
   turmaProfessorId?: Prisma.SortOrder
 }
@@ -434,6 +464,7 @@ export type ChamadaSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   alunoId?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
   turmaProfessorId?: Prisma.SortOrder
 }
@@ -606,10 +637,53 @@ export type ChamadaUncheckedUpdateManyWithoutTurmaProfessorNestedInput = {
   deleteMany?: Prisma.ChamadaScalarWhereInput | Prisma.ChamadaScalarWhereInput[]
 }
 
+export type ChamadaCreateNestedManyWithoutDisciplinaInput = {
+  create?: Prisma.XOR<Prisma.ChamadaCreateWithoutDisciplinaInput, Prisma.ChamadaUncheckedCreateWithoutDisciplinaInput> | Prisma.ChamadaCreateWithoutDisciplinaInput[] | Prisma.ChamadaUncheckedCreateWithoutDisciplinaInput[]
+  connectOrCreate?: Prisma.ChamadaCreateOrConnectWithoutDisciplinaInput | Prisma.ChamadaCreateOrConnectWithoutDisciplinaInput[]
+  createMany?: Prisma.ChamadaCreateManyDisciplinaInputEnvelope
+  connect?: Prisma.ChamadaWhereUniqueInput | Prisma.ChamadaWhereUniqueInput[]
+}
+
+export type ChamadaUncheckedCreateNestedManyWithoutDisciplinaInput = {
+  create?: Prisma.XOR<Prisma.ChamadaCreateWithoutDisciplinaInput, Prisma.ChamadaUncheckedCreateWithoutDisciplinaInput> | Prisma.ChamadaCreateWithoutDisciplinaInput[] | Prisma.ChamadaUncheckedCreateWithoutDisciplinaInput[]
+  connectOrCreate?: Prisma.ChamadaCreateOrConnectWithoutDisciplinaInput | Prisma.ChamadaCreateOrConnectWithoutDisciplinaInput[]
+  createMany?: Prisma.ChamadaCreateManyDisciplinaInputEnvelope
+  connect?: Prisma.ChamadaWhereUniqueInput | Prisma.ChamadaWhereUniqueInput[]
+}
+
+export type ChamadaUpdateManyWithoutDisciplinaNestedInput = {
+  create?: Prisma.XOR<Prisma.ChamadaCreateWithoutDisciplinaInput, Prisma.ChamadaUncheckedCreateWithoutDisciplinaInput> | Prisma.ChamadaCreateWithoutDisciplinaInput[] | Prisma.ChamadaUncheckedCreateWithoutDisciplinaInput[]
+  connectOrCreate?: Prisma.ChamadaCreateOrConnectWithoutDisciplinaInput | Prisma.ChamadaCreateOrConnectWithoutDisciplinaInput[]
+  upsert?: Prisma.ChamadaUpsertWithWhereUniqueWithoutDisciplinaInput | Prisma.ChamadaUpsertWithWhereUniqueWithoutDisciplinaInput[]
+  createMany?: Prisma.ChamadaCreateManyDisciplinaInputEnvelope
+  set?: Prisma.ChamadaWhereUniqueInput | Prisma.ChamadaWhereUniqueInput[]
+  disconnect?: Prisma.ChamadaWhereUniqueInput | Prisma.ChamadaWhereUniqueInput[]
+  delete?: Prisma.ChamadaWhereUniqueInput | Prisma.ChamadaWhereUniqueInput[]
+  connect?: Prisma.ChamadaWhereUniqueInput | Prisma.ChamadaWhereUniqueInput[]
+  update?: Prisma.ChamadaUpdateWithWhereUniqueWithoutDisciplinaInput | Prisma.ChamadaUpdateWithWhereUniqueWithoutDisciplinaInput[]
+  updateMany?: Prisma.ChamadaUpdateManyWithWhereWithoutDisciplinaInput | Prisma.ChamadaUpdateManyWithWhereWithoutDisciplinaInput[]
+  deleteMany?: Prisma.ChamadaScalarWhereInput | Prisma.ChamadaScalarWhereInput[]
+}
+
+export type ChamadaUncheckedUpdateManyWithoutDisciplinaNestedInput = {
+  create?: Prisma.XOR<Prisma.ChamadaCreateWithoutDisciplinaInput, Prisma.ChamadaUncheckedCreateWithoutDisciplinaInput> | Prisma.ChamadaCreateWithoutDisciplinaInput[] | Prisma.ChamadaUncheckedCreateWithoutDisciplinaInput[]
+  connectOrCreate?: Prisma.ChamadaCreateOrConnectWithoutDisciplinaInput | Prisma.ChamadaCreateOrConnectWithoutDisciplinaInput[]
+  upsert?: Prisma.ChamadaUpsertWithWhereUniqueWithoutDisciplinaInput | Prisma.ChamadaUpsertWithWhereUniqueWithoutDisciplinaInput[]
+  createMany?: Prisma.ChamadaCreateManyDisciplinaInputEnvelope
+  set?: Prisma.ChamadaWhereUniqueInput | Prisma.ChamadaWhereUniqueInput[]
+  disconnect?: Prisma.ChamadaWhereUniqueInput | Prisma.ChamadaWhereUniqueInput[]
+  delete?: Prisma.ChamadaWhereUniqueInput | Prisma.ChamadaWhereUniqueInput[]
+  connect?: Prisma.ChamadaWhereUniqueInput | Prisma.ChamadaWhereUniqueInput[]
+  update?: Prisma.ChamadaUpdateWithWhereUniqueWithoutDisciplinaInput | Prisma.ChamadaUpdateWithWhereUniqueWithoutDisciplinaInput[]
+  updateMany?: Prisma.ChamadaUpdateManyWithWhereWithoutDisciplinaInput | Prisma.ChamadaUpdateManyWithWhereWithoutDisciplinaInput[]
+  deleteMany?: Prisma.ChamadaScalarWhereInput | Prisma.ChamadaScalarWhereInput[]
+}
+
 export type ChamadaCreateWithoutAlunoInput = {
   data: Date | string
   presente: boolean
   turma: Prisma.TurmaCreateNestedOneWithoutChamadasInput
+  disciplina?: Prisma.DisciplinaCreateNestedOneWithoutChamadasInput
   funcionario: Prisma.FuncionarioCreateNestedOneWithoutChamadasInput
   turmaProfessor: Prisma.TurmaProfessorCreateNestedOneWithoutChamadasInput
 }
@@ -619,6 +693,7 @@ export type ChamadaUncheckedCreateWithoutAlunoInput = {
   data: Date | string
   presente: boolean
   turmaId: number
+  disciplinaId?: number | null
   funcionarioId: number
   turmaProfessorId: number
 }
@@ -658,6 +733,7 @@ export type ChamadaScalarWhereInput = {
   presente?: Prisma.BoolFilter<"Chamada"> | boolean
   alunoId?: Prisma.IntFilter<"Chamada"> | number
   turmaId?: Prisma.IntFilter<"Chamada"> | number
+  disciplinaId?: Prisma.IntNullableFilter<"Chamada"> | number | null
   funcionarioId?: Prisma.IntFilter<"Chamada"> | number
   turmaProfessorId?: Prisma.IntFilter<"Chamada"> | number
 }
@@ -667,6 +743,7 @@ export type ChamadaCreateWithoutFuncionarioInput = {
   presente: boolean
   aluno: Prisma.AlunoCreateNestedOneWithoutChamadasInput
   turma: Prisma.TurmaCreateNestedOneWithoutChamadasInput
+  disciplina?: Prisma.DisciplinaCreateNestedOneWithoutChamadasInput
   turmaProfessor: Prisma.TurmaProfessorCreateNestedOneWithoutChamadasInput
 }
 
@@ -676,6 +753,7 @@ export type ChamadaUncheckedCreateWithoutFuncionarioInput = {
   presente: boolean
   alunoId: number
   turmaId: number
+  disciplinaId?: number | null
   turmaProfessorId: number
 }
 
@@ -709,6 +787,7 @@ export type ChamadaCreateWithoutTurmaInput = {
   data: Date | string
   presente: boolean
   aluno: Prisma.AlunoCreateNestedOneWithoutChamadasInput
+  disciplina?: Prisma.DisciplinaCreateNestedOneWithoutChamadasInput
   funcionario: Prisma.FuncionarioCreateNestedOneWithoutChamadasInput
   turmaProfessor: Prisma.TurmaProfessorCreateNestedOneWithoutChamadasInput
 }
@@ -718,6 +797,7 @@ export type ChamadaUncheckedCreateWithoutTurmaInput = {
   data: Date | string
   presente: boolean
   alunoId: number
+  disciplinaId?: number | null
   funcionarioId: number
   turmaProfessorId: number
 }
@@ -753,6 +833,7 @@ export type ChamadaCreateWithoutTurmaProfessorInput = {
   presente: boolean
   aluno: Prisma.AlunoCreateNestedOneWithoutChamadasInput
   turma: Prisma.TurmaCreateNestedOneWithoutChamadasInput
+  disciplina?: Prisma.DisciplinaCreateNestedOneWithoutChamadasInput
   funcionario: Prisma.FuncionarioCreateNestedOneWithoutChamadasInput
 }
 
@@ -762,6 +843,7 @@ export type ChamadaUncheckedCreateWithoutTurmaProfessorInput = {
   presente: boolean
   alunoId: number
   turmaId: number
+  disciplinaId?: number | null
   funcionarioId: number
 }
 
@@ -791,11 +873,57 @@ export type ChamadaUpdateManyWithWhereWithoutTurmaProfessorInput = {
   data: Prisma.XOR<Prisma.ChamadaUpdateManyMutationInput, Prisma.ChamadaUncheckedUpdateManyWithoutTurmaProfessorInput>
 }
 
+export type ChamadaCreateWithoutDisciplinaInput = {
+  data: Date | string
+  presente: boolean
+  aluno: Prisma.AlunoCreateNestedOneWithoutChamadasInput
+  turma: Prisma.TurmaCreateNestedOneWithoutChamadasInput
+  funcionario: Prisma.FuncionarioCreateNestedOneWithoutChamadasInput
+  turmaProfessor: Prisma.TurmaProfessorCreateNestedOneWithoutChamadasInput
+}
+
+export type ChamadaUncheckedCreateWithoutDisciplinaInput = {
+  id?: number
+  data: Date | string
+  presente: boolean
+  alunoId: number
+  turmaId: number
+  funcionarioId: number
+  turmaProfessorId: number
+}
+
+export type ChamadaCreateOrConnectWithoutDisciplinaInput = {
+  where: Prisma.ChamadaWhereUniqueInput
+  create: Prisma.XOR<Prisma.ChamadaCreateWithoutDisciplinaInput, Prisma.ChamadaUncheckedCreateWithoutDisciplinaInput>
+}
+
+export type ChamadaCreateManyDisciplinaInputEnvelope = {
+  data: Prisma.ChamadaCreateManyDisciplinaInput | Prisma.ChamadaCreateManyDisciplinaInput[]
+  skipDuplicates?: boolean
+}
+
+export type ChamadaUpsertWithWhereUniqueWithoutDisciplinaInput = {
+  where: Prisma.ChamadaWhereUniqueInput
+  update: Prisma.XOR<Prisma.ChamadaUpdateWithoutDisciplinaInput, Prisma.ChamadaUncheckedUpdateWithoutDisciplinaInput>
+  create: Prisma.XOR<Prisma.ChamadaCreateWithoutDisciplinaInput, Prisma.ChamadaUncheckedCreateWithoutDisciplinaInput>
+}
+
+export type ChamadaUpdateWithWhereUniqueWithoutDisciplinaInput = {
+  where: Prisma.ChamadaWhereUniqueInput
+  data: Prisma.XOR<Prisma.ChamadaUpdateWithoutDisciplinaInput, Prisma.ChamadaUncheckedUpdateWithoutDisciplinaInput>
+}
+
+export type ChamadaUpdateManyWithWhereWithoutDisciplinaInput = {
+  where: Prisma.ChamadaScalarWhereInput
+  data: Prisma.XOR<Prisma.ChamadaUpdateManyMutationInput, Prisma.ChamadaUncheckedUpdateManyWithoutDisciplinaInput>
+}
+
 export type ChamadaCreateManyAlunoInput = {
   id?: number
   data: Date | string
   presente: boolean
   turmaId: number
+  disciplinaId?: number | null
   funcionarioId: number
   turmaProfessorId: number
 }
@@ -804,6 +932,7 @@ export type ChamadaUpdateWithoutAlunoInput = {
   data?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   turma?: Prisma.TurmaUpdateOneRequiredWithoutChamadasNestedInput
+  disciplina?: Prisma.DisciplinaUpdateOneWithoutChamadasNestedInput
   funcionario?: Prisma.FuncionarioUpdateOneRequiredWithoutChamadasNestedInput
   turmaProfessor?: Prisma.TurmaProfessorUpdateOneRequiredWithoutChamadasNestedInput
 }
@@ -813,6 +942,7 @@ export type ChamadaUncheckedUpdateWithoutAlunoInput = {
   data?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   turmaId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
   turmaProfessorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -822,6 +952,7 @@ export type ChamadaUncheckedUpdateManyWithoutAlunoInput = {
   data?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   turmaId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
   turmaProfessorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -832,6 +963,7 @@ export type ChamadaCreateManyFuncionarioInput = {
   presente: boolean
   alunoId: number
   turmaId: number
+  disciplinaId?: number | null
   turmaProfessorId: number
 }
 
@@ -840,6 +972,7 @@ export type ChamadaUpdateWithoutFuncionarioInput = {
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   aluno?: Prisma.AlunoUpdateOneRequiredWithoutChamadasNestedInput
   turma?: Prisma.TurmaUpdateOneRequiredWithoutChamadasNestedInput
+  disciplina?: Prisma.DisciplinaUpdateOneWithoutChamadasNestedInput
   turmaProfessor?: Prisma.TurmaProfessorUpdateOneRequiredWithoutChamadasNestedInput
 }
 
@@ -849,6 +982,7 @@ export type ChamadaUncheckedUpdateWithoutFuncionarioInput = {
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alunoId?: Prisma.IntFieldUpdateOperationsInput | number
   turmaId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   turmaProfessorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -858,6 +992,7 @@ export type ChamadaUncheckedUpdateManyWithoutFuncionarioInput = {
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alunoId?: Prisma.IntFieldUpdateOperationsInput | number
   turmaId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   turmaProfessorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -866,6 +1001,7 @@ export type ChamadaCreateManyTurmaInput = {
   data: Date | string
   presente: boolean
   alunoId: number
+  disciplinaId?: number | null
   funcionarioId: number
   turmaProfessorId: number
 }
@@ -874,6 +1010,7 @@ export type ChamadaUpdateWithoutTurmaInput = {
   data?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   aluno?: Prisma.AlunoUpdateOneRequiredWithoutChamadasNestedInput
+  disciplina?: Prisma.DisciplinaUpdateOneWithoutChamadasNestedInput
   funcionario?: Prisma.FuncionarioUpdateOneRequiredWithoutChamadasNestedInput
   turmaProfessor?: Prisma.TurmaProfessorUpdateOneRequiredWithoutChamadasNestedInput
 }
@@ -883,6 +1020,7 @@ export type ChamadaUncheckedUpdateWithoutTurmaInput = {
   data?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alunoId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
   turmaProfessorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -892,6 +1030,7 @@ export type ChamadaUncheckedUpdateManyWithoutTurmaInput = {
   data?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alunoId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
   turmaProfessorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -902,6 +1041,7 @@ export type ChamadaCreateManyTurmaProfessorInput = {
   presente: boolean
   alunoId: number
   turmaId: number
+  disciplinaId?: number | null
   funcionarioId: number
 }
 
@@ -910,6 +1050,7 @@ export type ChamadaUpdateWithoutTurmaProfessorInput = {
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   aluno?: Prisma.AlunoUpdateOneRequiredWithoutChamadasNestedInput
   turma?: Prisma.TurmaUpdateOneRequiredWithoutChamadasNestedInput
+  disciplina?: Prisma.DisciplinaUpdateOneWithoutChamadasNestedInput
   funcionario?: Prisma.FuncionarioUpdateOneRequiredWithoutChamadasNestedInput
 }
 
@@ -919,6 +1060,7 @@ export type ChamadaUncheckedUpdateWithoutTurmaProfessorInput = {
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alunoId?: Prisma.IntFieldUpdateOperationsInput | number
   turmaId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -928,7 +1070,47 @@ export type ChamadaUncheckedUpdateManyWithoutTurmaProfessorInput = {
   presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alunoId?: Prisma.IntFieldUpdateOperationsInput | number
   turmaId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type ChamadaCreateManyDisciplinaInput = {
+  id?: number
+  data: Date | string
+  presente: boolean
+  alunoId: number
+  turmaId: number
+  funcionarioId: number
+  turmaProfessorId: number
+}
+
+export type ChamadaUpdateWithoutDisciplinaInput = {
+  data?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aluno?: Prisma.AlunoUpdateOneRequiredWithoutChamadasNestedInput
+  turma?: Prisma.TurmaUpdateOneRequiredWithoutChamadasNestedInput
+  funcionario?: Prisma.FuncionarioUpdateOneRequiredWithoutChamadasNestedInput
+  turmaProfessor?: Prisma.TurmaProfessorUpdateOneRequiredWithoutChamadasNestedInput
+}
+
+export type ChamadaUncheckedUpdateWithoutDisciplinaInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  data?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  alunoId?: Prisma.IntFieldUpdateOperationsInput | number
+  turmaId?: Prisma.IntFieldUpdateOperationsInput | number
+  funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  turmaProfessorId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type ChamadaUncheckedUpdateManyWithoutDisciplinaInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  data?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  presente?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  alunoId?: Prisma.IntFieldUpdateOperationsInput | number
+  turmaId?: Prisma.IntFieldUpdateOperationsInput | number
+  funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  turmaProfessorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -939,10 +1121,12 @@ export type ChamadaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   presente?: boolean
   alunoId?: boolean
   turmaId?: boolean
+  disciplinaId?: boolean
   funcionarioId?: boolean
   turmaProfessorId?: boolean
   aluno?: boolean | Prisma.AlunoDefaultArgs<ExtArgs>
   turma?: boolean | Prisma.TurmaDefaultArgs<ExtArgs>
+  disciplina?: boolean | Prisma.Chamada$disciplinaArgs<ExtArgs>
   funcionario?: boolean | Prisma.FuncionarioDefaultArgs<ExtArgs>
   turmaProfessor?: boolean | Prisma.TurmaProfessorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["chamada"]>
@@ -953,10 +1137,12 @@ export type ChamadaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   presente?: boolean
   alunoId?: boolean
   turmaId?: boolean
+  disciplinaId?: boolean
   funcionarioId?: boolean
   turmaProfessorId?: boolean
   aluno?: boolean | Prisma.AlunoDefaultArgs<ExtArgs>
   turma?: boolean | Prisma.TurmaDefaultArgs<ExtArgs>
+  disciplina?: boolean | Prisma.Chamada$disciplinaArgs<ExtArgs>
   funcionario?: boolean | Prisma.FuncionarioDefaultArgs<ExtArgs>
   turmaProfessor?: boolean | Prisma.TurmaProfessorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["chamada"]>
@@ -967,10 +1153,12 @@ export type ChamadaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   presente?: boolean
   alunoId?: boolean
   turmaId?: boolean
+  disciplinaId?: boolean
   funcionarioId?: boolean
   turmaProfessorId?: boolean
   aluno?: boolean | Prisma.AlunoDefaultArgs<ExtArgs>
   turma?: boolean | Prisma.TurmaDefaultArgs<ExtArgs>
+  disciplina?: boolean | Prisma.Chamada$disciplinaArgs<ExtArgs>
   funcionario?: boolean | Prisma.FuncionarioDefaultArgs<ExtArgs>
   turmaProfessor?: boolean | Prisma.TurmaProfessorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["chamada"]>
@@ -981,26 +1169,30 @@ export type ChamadaSelectScalar = {
   presente?: boolean
   alunoId?: boolean
   turmaId?: boolean
+  disciplinaId?: boolean
   funcionarioId?: boolean
   turmaProfessorId?: boolean
 }
 
-export type ChamadaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "data" | "presente" | "alunoId" | "turmaId" | "funcionarioId" | "turmaProfessorId", ExtArgs["result"]["chamada"]>
+export type ChamadaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "data" | "presente" | "alunoId" | "turmaId" | "disciplinaId" | "funcionarioId" | "turmaProfessorId", ExtArgs["result"]["chamada"]>
 export type ChamadaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   aluno?: boolean | Prisma.AlunoDefaultArgs<ExtArgs>
   turma?: boolean | Prisma.TurmaDefaultArgs<ExtArgs>
+  disciplina?: boolean | Prisma.Chamada$disciplinaArgs<ExtArgs>
   funcionario?: boolean | Prisma.FuncionarioDefaultArgs<ExtArgs>
   turmaProfessor?: boolean | Prisma.TurmaProfessorDefaultArgs<ExtArgs>
 }
 export type ChamadaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   aluno?: boolean | Prisma.AlunoDefaultArgs<ExtArgs>
   turma?: boolean | Prisma.TurmaDefaultArgs<ExtArgs>
+  disciplina?: boolean | Prisma.Chamada$disciplinaArgs<ExtArgs>
   funcionario?: boolean | Prisma.FuncionarioDefaultArgs<ExtArgs>
   turmaProfessor?: boolean | Prisma.TurmaProfessorDefaultArgs<ExtArgs>
 }
 export type ChamadaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   aluno?: boolean | Prisma.AlunoDefaultArgs<ExtArgs>
   turma?: boolean | Prisma.TurmaDefaultArgs<ExtArgs>
+  disciplina?: boolean | Prisma.Chamada$disciplinaArgs<ExtArgs>
   funcionario?: boolean | Prisma.FuncionarioDefaultArgs<ExtArgs>
   turmaProfessor?: boolean | Prisma.TurmaProfessorDefaultArgs<ExtArgs>
 }
@@ -1010,6 +1202,7 @@ export type $ChamadaPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     aluno: Prisma.$AlunoPayload<ExtArgs>
     turma: Prisma.$TurmaPayload<ExtArgs>
+    disciplina: Prisma.$DisciplinaPayload<ExtArgs> | null
     funcionario: Prisma.$FuncionarioPayload<ExtArgs>
     turmaProfessor: Prisma.$TurmaProfessorPayload<ExtArgs>
   }
@@ -1019,6 +1212,7 @@ export type $ChamadaPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     presente: boolean
     alunoId: number
     turmaId: number
+    disciplinaId: number | null
     funcionarioId: number
     turmaProfessorId: number
   }, ExtArgs["result"]["chamada"]>
@@ -1417,6 +1611,7 @@ export interface Prisma__ChamadaClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   aluno<T extends Prisma.AlunoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AlunoDefaultArgs<ExtArgs>>): Prisma.Prisma__AlunoClient<runtime.Types.Result.GetResult<Prisma.$AlunoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   turma<T extends Prisma.TurmaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TurmaDefaultArgs<ExtArgs>>): Prisma.Prisma__TurmaClient<runtime.Types.Result.GetResult<Prisma.$TurmaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  disciplina<T extends Prisma.Chamada$disciplinaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Chamada$disciplinaArgs<ExtArgs>>): Prisma.Prisma__DisciplinaClient<runtime.Types.Result.GetResult<Prisma.$DisciplinaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   funcionario<T extends Prisma.FuncionarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FuncionarioDefaultArgs<ExtArgs>>): Prisma.Prisma__FuncionarioClient<runtime.Types.Result.GetResult<Prisma.$FuncionarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   turmaProfessor<T extends Prisma.TurmaProfessorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TurmaProfessorDefaultArgs<ExtArgs>>): Prisma.Prisma__TurmaProfessorClient<runtime.Types.Result.GetResult<Prisma.$TurmaProfessorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1453,6 +1648,7 @@ export interface ChamadaFieldRefs {
   readonly presente: Prisma.FieldRef<"Chamada", 'Boolean'>
   readonly alunoId: Prisma.FieldRef<"Chamada", 'Int'>
   readonly turmaId: Prisma.FieldRef<"Chamada", 'Int'>
+  readonly disciplinaId: Prisma.FieldRef<"Chamada", 'Int'>
   readonly funcionarioId: Prisma.FieldRef<"Chamada", 'Int'>
   readonly turmaProfessorId: Prisma.FieldRef<"Chamada", 'Int'>
 }
@@ -1853,6 +2049,25 @@ export type ChamadaDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Chamadas to delete.
    */
   limit?: number
+}
+
+/**
+ * Chamada.disciplina
+ */
+export type Chamada$disciplinaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Disciplina
+   */
+  select?: Prisma.DisciplinaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Disciplina
+   */
+  omit?: Prisma.DisciplinaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DisciplinaInclude<ExtArgs> | null
+  where?: Prisma.DisciplinaWhereInput
 }
 
 /**
