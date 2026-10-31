@@ -16,10 +16,10 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "../models.js"
-import { type PrismaClient } from "./class.js"
+import type * as Prisma from "../models"
+import { type PrismaClient } from "./class"
 
-export type * from '../models.js'
+export type * from '../models'
 
 export type DMMF = typeof runtime.DMMF
 
@@ -404,7 +404,8 @@ export const ModelName = {
   Sala: 'Sala',
   SalaProfessor: 'SalaProfessor',
   TurmaProfessor: 'TurmaProfessor',
-  Chamada: 'Chamada'
+  Chamada: 'Chamada',
+  Disciplina: 'Disciplina'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -420,7 +421,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "admin" | "aluno" | "funcionario" | "turma" | "sala" | "salaProfessor" | "turmaProfessor" | "chamada"
+    modelProps: "admin" | "aluno" | "funcionario" | "turma" | "sala" | "salaProfessor" | "turmaProfessor" | "chamada" | "disciplina"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1016,6 +1017,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Disciplina: {
+      payload: Prisma.$DisciplinaPayload<ExtArgs>
+      fields: Prisma.DisciplinaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DisciplinaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisciplinaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DisciplinaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisciplinaPayload>
+        }
+        findFirst: {
+          args: Prisma.DisciplinaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisciplinaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DisciplinaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisciplinaPayload>
+        }
+        findMany: {
+          args: Prisma.DisciplinaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisciplinaPayload>[]
+        }
+        create: {
+          args: Prisma.DisciplinaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisciplinaPayload>
+        }
+        createMany: {
+          args: Prisma.DisciplinaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DisciplinaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisciplinaPayload>[]
+        }
+        delete: {
+          args: Prisma.DisciplinaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisciplinaPayload>
+        }
+        update: {
+          args: Prisma.DisciplinaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisciplinaPayload>
+        }
+        deleteMany: {
+          args: Prisma.DisciplinaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DisciplinaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DisciplinaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisciplinaPayload>[]
+        }
+        upsert: {
+          args: Prisma.DisciplinaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisciplinaPayload>
+        }
+        aggregate: {
+          args: Prisma.DisciplinaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDisciplina>
+        }
+        groupBy: {
+          args: Prisma.DisciplinaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DisciplinaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DisciplinaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DisciplinaCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1067,6 +1142,7 @@ export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof Ad
 
 export const AlunoScalarFieldEnum = {
   id: 'id',
+  matricula: 'matricula',
   nome: 'nome',
   data_nascimento: 'data_nascimento',
   sexo: 'sexo',
@@ -1157,11 +1233,25 @@ export const ChamadaScalarFieldEnum = {
   presente: 'presente',
   alunoId: 'alunoId',
   turmaId: 'turmaId',
+  disciplinaId: 'disciplinaId',
   funcionarioId: 'funcionarioId',
   turmaProfessorId: 'turmaProfessorId'
 } as const
 
 export type ChamadaScalarFieldEnum = (typeof ChamadaScalarFieldEnum)[keyof typeof ChamadaScalarFieldEnum]
+
+
+export const DisciplinaScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  cargaHoraria: 'cargaHoraria',
+  professorNome: 'professorNome',
+  descricao: 'descricao',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DisciplinaScalarFieldEnum = (typeof DisciplinaScalarFieldEnum)[keyof typeof DisciplinaScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1415,6 +1505,7 @@ export type GlobalOmitConfig = {
   salaProfessor?: Prisma.SalaProfessorOmit
   turmaProfessor?: Prisma.TurmaProfessorOmit
   chamada?: Prisma.ChamadaOmit
+  disciplina?: Prisma.DisciplinaOmit
 }
 
 /* Types for Logging */
