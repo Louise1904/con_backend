@@ -30,30 +30,35 @@ export type TurmaProfessorAvgAggregateOutputType = {
   id: number | null
   turmaId: number | null
   funcionarioId: number | null
+  disciplinaId: number | null
 }
 
 export type TurmaProfessorSumAggregateOutputType = {
   id: number | null
   turmaId: number | null
   funcionarioId: number | null
+  disciplinaId: number | null
 }
 
 export type TurmaProfessorMinAggregateOutputType = {
   id: number | null
   turmaId: number | null
   funcionarioId: number | null
+  disciplinaId: number | null
 }
 
 export type TurmaProfessorMaxAggregateOutputType = {
   id: number | null
   turmaId: number | null
   funcionarioId: number | null
+  disciplinaId: number | null
 }
 
 export type TurmaProfessorCountAggregateOutputType = {
   id: number
   turmaId: number
   funcionarioId: number
+  disciplinaId: number
   _all: number
 }
 
@@ -62,30 +67,35 @@ export type TurmaProfessorAvgAggregateInputType = {
   id?: true
   turmaId?: true
   funcionarioId?: true
+  disciplinaId?: true
 }
 
 export type TurmaProfessorSumAggregateInputType = {
   id?: true
   turmaId?: true
   funcionarioId?: true
+  disciplinaId?: true
 }
 
 export type TurmaProfessorMinAggregateInputType = {
   id?: true
   turmaId?: true
   funcionarioId?: true
+  disciplinaId?: true
 }
 
 export type TurmaProfessorMaxAggregateInputType = {
   id?: true
   turmaId?: true
   funcionarioId?: true
+  disciplinaId?: true
 }
 
 export type TurmaProfessorCountAggregateInputType = {
   id?: true
   turmaId?: true
   funcionarioId?: true
+  disciplinaId?: true
   _all?: true
 }
 
@@ -179,6 +189,7 @@ export type TurmaProfessorGroupByOutputType = {
   id: number
   turmaId: number
   funcionarioId: number
+  disciplinaId: number
   _count: TurmaProfessorCountAggregateOutputType | null
   _avg: TurmaProfessorAvgAggregateOutputType | null
   _sum: TurmaProfessorSumAggregateOutputType | null
@@ -208,8 +219,10 @@ export type TurmaProfessorWhereInput = {
   id?: Prisma.IntFilter<"TurmaProfessor"> | number
   turmaId?: Prisma.IntFilter<"TurmaProfessor"> | number
   funcionarioId?: Prisma.IntFilter<"TurmaProfessor"> | number
+  disciplinaId?: Prisma.IntFilter<"TurmaProfessor"> | number
   turma?: Prisma.XOR<Prisma.TurmaScalarRelationFilter, Prisma.TurmaWhereInput>
   funcionario?: Prisma.XOR<Prisma.FuncionarioScalarRelationFilter, Prisma.FuncionarioWhereInput>
+  disciplina?: Prisma.XOR<Prisma.DisciplinaScalarRelationFilter, Prisma.DisciplinaWhereInput>
   chamadas?: Prisma.ChamadaListRelationFilter
 }
 
@@ -217,28 +230,33 @@ export type TurmaProfessorOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrder
   turma?: Prisma.TurmaOrderByWithRelationInput
   funcionario?: Prisma.FuncionarioOrderByWithRelationInput
+  disciplina?: Prisma.DisciplinaOrderByWithRelationInput
   chamadas?: Prisma.ChamadaOrderByRelationAggregateInput
 }
 
 export type TurmaProfessorWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  turmaId_funcionarioId?: Prisma.TurmaProfessorTurmaIdFuncionarioIdCompoundUniqueInput
+  turmaId_disciplinaId?: Prisma.TurmaProfessorTurmaIdDisciplinaIdCompoundUniqueInput
   AND?: Prisma.TurmaProfessorWhereInput | Prisma.TurmaProfessorWhereInput[]
   OR?: Prisma.TurmaProfessorWhereInput[]
   NOT?: Prisma.TurmaProfessorWhereInput | Prisma.TurmaProfessorWhereInput[]
   turmaId?: Prisma.IntFilter<"TurmaProfessor"> | number
   funcionarioId?: Prisma.IntFilter<"TurmaProfessor"> | number
+  disciplinaId?: Prisma.IntFilter<"TurmaProfessor"> | number
   turma?: Prisma.XOR<Prisma.TurmaScalarRelationFilter, Prisma.TurmaWhereInput>
   funcionario?: Prisma.XOR<Prisma.FuncionarioScalarRelationFilter, Prisma.FuncionarioWhereInput>
+  disciplina?: Prisma.XOR<Prisma.DisciplinaScalarRelationFilter, Prisma.DisciplinaWhereInput>
   chamadas?: Prisma.ChamadaListRelationFilter
-}, "id" | "turmaId_funcionarioId">
+}, "id" | "turmaId_disciplinaId">
 
 export type TurmaProfessorOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrder
   _count?: Prisma.TurmaProfessorCountOrderByAggregateInput
   _avg?: Prisma.TurmaProfessorAvgOrderByAggregateInput
   _max?: Prisma.TurmaProfessorMaxOrderByAggregateInput
@@ -253,11 +271,13 @@ export type TurmaProfessorScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"TurmaProfessor"> | number
   turmaId?: Prisma.IntWithAggregatesFilter<"TurmaProfessor"> | number
   funcionarioId?: Prisma.IntWithAggregatesFilter<"TurmaProfessor"> | number
+  disciplinaId?: Prisma.IntWithAggregatesFilter<"TurmaProfessor"> | number
 }
 
 export type TurmaProfessorCreateInput = {
   turma: Prisma.TurmaCreateNestedOneWithoutProfessoresInput
   funcionario: Prisma.FuncionarioCreateNestedOneWithoutTurmasInput
+  disciplina: Prisma.DisciplinaCreateNestedOneWithoutTurmaProfessoresInput
   chamadas?: Prisma.ChamadaCreateNestedManyWithoutTurmaProfessorInput
 }
 
@@ -265,12 +285,14 @@ export type TurmaProfessorUncheckedCreateInput = {
   id?: number
   turmaId: number
   funcionarioId: number
+  disciplinaId: number
   chamadas?: Prisma.ChamadaUncheckedCreateNestedManyWithoutTurmaProfessorInput
 }
 
 export type TurmaProfessorUpdateInput = {
   turma?: Prisma.TurmaUpdateOneRequiredWithoutProfessoresNestedInput
   funcionario?: Prisma.FuncionarioUpdateOneRequiredWithoutTurmasNestedInput
+  disciplina?: Prisma.DisciplinaUpdateOneRequiredWithoutTurmaProfessoresNestedInput
   chamadas?: Prisma.ChamadaUpdateManyWithoutTurmaProfessorNestedInput
 }
 
@@ -278,6 +300,7 @@ export type TurmaProfessorUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   turmaId?: Prisma.IntFieldUpdateOperationsInput | number
   funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.IntFieldUpdateOperationsInput | number
   chamadas?: Prisma.ChamadaUncheckedUpdateManyWithoutTurmaProfessorNestedInput
 }
 
@@ -285,6 +308,7 @@ export type TurmaProfessorCreateManyInput = {
   id?: number
   turmaId: number
   funcionarioId: number
+  disciplinaId: number
 }
 
 export type TurmaProfessorUpdateManyMutationInput = {
@@ -295,6 +319,7 @@ export type TurmaProfessorUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   turmaId?: Prisma.IntFieldUpdateOperationsInput | number
   funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type TurmaProfessorListRelationFilter = {
@@ -307,39 +332,44 @@ export type TurmaProfessorOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type TurmaProfessorTurmaIdFuncionarioIdCompoundUniqueInput = {
+export type TurmaProfessorTurmaIdDisciplinaIdCompoundUniqueInput = {
   turmaId: number
-  funcionarioId: number
+  disciplinaId: number
 }
 
 export type TurmaProfessorCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrder
 }
 
 export type TurmaProfessorAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrder
 }
 
 export type TurmaProfessorMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrder
 }
 
 export type TurmaProfessorMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrder
 }
 
 export type TurmaProfessorSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   turmaId?: Prisma.SortOrder
   funcionarioId?: Prisma.SortOrder
+  disciplinaId?: Prisma.SortOrder
 }
 
 export type TurmaProfessorScalarRelationFilter = {
@@ -445,14 +475,58 @@ export type TurmaProfessorUpdateOneRequiredWithoutChamadasNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TurmaProfessorUpdateToOneWithWhereWithoutChamadasInput, Prisma.TurmaProfessorUpdateWithoutChamadasInput>, Prisma.TurmaProfessorUncheckedUpdateWithoutChamadasInput>
 }
 
+export type TurmaProfessorCreateNestedManyWithoutDisciplinaInput = {
+  create?: Prisma.XOR<Prisma.TurmaProfessorCreateWithoutDisciplinaInput, Prisma.TurmaProfessorUncheckedCreateWithoutDisciplinaInput> | Prisma.TurmaProfessorCreateWithoutDisciplinaInput[] | Prisma.TurmaProfessorUncheckedCreateWithoutDisciplinaInput[]
+  connectOrCreate?: Prisma.TurmaProfessorCreateOrConnectWithoutDisciplinaInput | Prisma.TurmaProfessorCreateOrConnectWithoutDisciplinaInput[]
+  createMany?: Prisma.TurmaProfessorCreateManyDisciplinaInputEnvelope
+  connect?: Prisma.TurmaProfessorWhereUniqueInput | Prisma.TurmaProfessorWhereUniqueInput[]
+}
+
+export type TurmaProfessorUncheckedCreateNestedManyWithoutDisciplinaInput = {
+  create?: Prisma.XOR<Prisma.TurmaProfessorCreateWithoutDisciplinaInput, Prisma.TurmaProfessorUncheckedCreateWithoutDisciplinaInput> | Prisma.TurmaProfessorCreateWithoutDisciplinaInput[] | Prisma.TurmaProfessorUncheckedCreateWithoutDisciplinaInput[]
+  connectOrCreate?: Prisma.TurmaProfessorCreateOrConnectWithoutDisciplinaInput | Prisma.TurmaProfessorCreateOrConnectWithoutDisciplinaInput[]
+  createMany?: Prisma.TurmaProfessorCreateManyDisciplinaInputEnvelope
+  connect?: Prisma.TurmaProfessorWhereUniqueInput | Prisma.TurmaProfessorWhereUniqueInput[]
+}
+
+export type TurmaProfessorUpdateManyWithoutDisciplinaNestedInput = {
+  create?: Prisma.XOR<Prisma.TurmaProfessorCreateWithoutDisciplinaInput, Prisma.TurmaProfessorUncheckedCreateWithoutDisciplinaInput> | Prisma.TurmaProfessorCreateWithoutDisciplinaInput[] | Prisma.TurmaProfessorUncheckedCreateWithoutDisciplinaInput[]
+  connectOrCreate?: Prisma.TurmaProfessorCreateOrConnectWithoutDisciplinaInput | Prisma.TurmaProfessorCreateOrConnectWithoutDisciplinaInput[]
+  upsert?: Prisma.TurmaProfessorUpsertWithWhereUniqueWithoutDisciplinaInput | Prisma.TurmaProfessorUpsertWithWhereUniqueWithoutDisciplinaInput[]
+  createMany?: Prisma.TurmaProfessorCreateManyDisciplinaInputEnvelope
+  set?: Prisma.TurmaProfessorWhereUniqueInput | Prisma.TurmaProfessorWhereUniqueInput[]
+  disconnect?: Prisma.TurmaProfessorWhereUniqueInput | Prisma.TurmaProfessorWhereUniqueInput[]
+  delete?: Prisma.TurmaProfessorWhereUniqueInput | Prisma.TurmaProfessorWhereUniqueInput[]
+  connect?: Prisma.TurmaProfessorWhereUniqueInput | Prisma.TurmaProfessorWhereUniqueInput[]
+  update?: Prisma.TurmaProfessorUpdateWithWhereUniqueWithoutDisciplinaInput | Prisma.TurmaProfessorUpdateWithWhereUniqueWithoutDisciplinaInput[]
+  updateMany?: Prisma.TurmaProfessorUpdateManyWithWhereWithoutDisciplinaInput | Prisma.TurmaProfessorUpdateManyWithWhereWithoutDisciplinaInput[]
+  deleteMany?: Prisma.TurmaProfessorScalarWhereInput | Prisma.TurmaProfessorScalarWhereInput[]
+}
+
+export type TurmaProfessorUncheckedUpdateManyWithoutDisciplinaNestedInput = {
+  create?: Prisma.XOR<Prisma.TurmaProfessorCreateWithoutDisciplinaInput, Prisma.TurmaProfessorUncheckedCreateWithoutDisciplinaInput> | Prisma.TurmaProfessorCreateWithoutDisciplinaInput[] | Prisma.TurmaProfessorUncheckedCreateWithoutDisciplinaInput[]
+  connectOrCreate?: Prisma.TurmaProfessorCreateOrConnectWithoutDisciplinaInput | Prisma.TurmaProfessorCreateOrConnectWithoutDisciplinaInput[]
+  upsert?: Prisma.TurmaProfessorUpsertWithWhereUniqueWithoutDisciplinaInput | Prisma.TurmaProfessorUpsertWithWhereUniqueWithoutDisciplinaInput[]
+  createMany?: Prisma.TurmaProfessorCreateManyDisciplinaInputEnvelope
+  set?: Prisma.TurmaProfessorWhereUniqueInput | Prisma.TurmaProfessorWhereUniqueInput[]
+  disconnect?: Prisma.TurmaProfessorWhereUniqueInput | Prisma.TurmaProfessorWhereUniqueInput[]
+  delete?: Prisma.TurmaProfessorWhereUniqueInput | Prisma.TurmaProfessorWhereUniqueInput[]
+  connect?: Prisma.TurmaProfessorWhereUniqueInput | Prisma.TurmaProfessorWhereUniqueInput[]
+  update?: Prisma.TurmaProfessorUpdateWithWhereUniqueWithoutDisciplinaInput | Prisma.TurmaProfessorUpdateWithWhereUniqueWithoutDisciplinaInput[]
+  updateMany?: Prisma.TurmaProfessorUpdateManyWithWhereWithoutDisciplinaInput | Prisma.TurmaProfessorUpdateManyWithWhereWithoutDisciplinaInput[]
+  deleteMany?: Prisma.TurmaProfessorScalarWhereInput | Prisma.TurmaProfessorScalarWhereInput[]
+}
+
 export type TurmaProfessorCreateWithoutFuncionarioInput = {
   turma: Prisma.TurmaCreateNestedOneWithoutProfessoresInput
+  disciplina: Prisma.DisciplinaCreateNestedOneWithoutTurmaProfessoresInput
   chamadas?: Prisma.ChamadaCreateNestedManyWithoutTurmaProfessorInput
 }
 
 export type TurmaProfessorUncheckedCreateWithoutFuncionarioInput = {
   id?: number
   turmaId: number
+  disciplinaId: number
   chamadas?: Prisma.ChamadaUncheckedCreateNestedManyWithoutTurmaProfessorInput
 }
 
@@ -489,16 +563,19 @@ export type TurmaProfessorScalarWhereInput = {
   id?: Prisma.IntFilter<"TurmaProfessor"> | number
   turmaId?: Prisma.IntFilter<"TurmaProfessor"> | number
   funcionarioId?: Prisma.IntFilter<"TurmaProfessor"> | number
+  disciplinaId?: Prisma.IntFilter<"TurmaProfessor"> | number
 }
 
 export type TurmaProfessorCreateWithoutTurmaInput = {
   funcionario: Prisma.FuncionarioCreateNestedOneWithoutTurmasInput
+  disciplina: Prisma.DisciplinaCreateNestedOneWithoutTurmaProfessoresInput
   chamadas?: Prisma.ChamadaCreateNestedManyWithoutTurmaProfessorInput
 }
 
 export type TurmaProfessorUncheckedCreateWithoutTurmaInput = {
   id?: number
   funcionarioId: number
+  disciplinaId: number
   chamadas?: Prisma.ChamadaUncheckedCreateNestedManyWithoutTurmaProfessorInput
 }
 
@@ -531,12 +608,14 @@ export type TurmaProfessorUpdateManyWithWhereWithoutTurmaInput = {
 export type TurmaProfessorCreateWithoutChamadasInput = {
   turma: Prisma.TurmaCreateNestedOneWithoutProfessoresInput
   funcionario: Prisma.FuncionarioCreateNestedOneWithoutTurmasInput
+  disciplina: Prisma.DisciplinaCreateNestedOneWithoutTurmaProfessoresInput
 }
 
 export type TurmaProfessorUncheckedCreateWithoutChamadasInput = {
   id?: number
   turmaId: number
   funcionarioId: number
+  disciplinaId: number
 }
 
 export type TurmaProfessorCreateOrConnectWithoutChamadasInput = {
@@ -558,53 +637,127 @@ export type TurmaProfessorUpdateToOneWithWhereWithoutChamadasInput = {
 export type TurmaProfessorUpdateWithoutChamadasInput = {
   turma?: Prisma.TurmaUpdateOneRequiredWithoutProfessoresNestedInput
   funcionario?: Prisma.FuncionarioUpdateOneRequiredWithoutTurmasNestedInput
+  disciplina?: Prisma.DisciplinaUpdateOneRequiredWithoutTurmaProfessoresNestedInput
 }
 
 export type TurmaProfessorUncheckedUpdateWithoutChamadasInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   turmaId?: Prisma.IntFieldUpdateOperationsInput | number
   funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type TurmaProfessorCreateWithoutDisciplinaInput = {
+  turma: Prisma.TurmaCreateNestedOneWithoutProfessoresInput
+  funcionario: Prisma.FuncionarioCreateNestedOneWithoutTurmasInput
+  chamadas?: Prisma.ChamadaCreateNestedManyWithoutTurmaProfessorInput
+}
+
+export type TurmaProfessorUncheckedCreateWithoutDisciplinaInput = {
+  id?: number
+  turmaId: number
+  funcionarioId: number
+  chamadas?: Prisma.ChamadaUncheckedCreateNestedManyWithoutTurmaProfessorInput
+}
+
+export type TurmaProfessorCreateOrConnectWithoutDisciplinaInput = {
+  where: Prisma.TurmaProfessorWhereUniqueInput
+  create: Prisma.XOR<Prisma.TurmaProfessorCreateWithoutDisciplinaInput, Prisma.TurmaProfessorUncheckedCreateWithoutDisciplinaInput>
+}
+
+export type TurmaProfessorCreateManyDisciplinaInputEnvelope = {
+  data: Prisma.TurmaProfessorCreateManyDisciplinaInput | Prisma.TurmaProfessorCreateManyDisciplinaInput[]
+  skipDuplicates?: boolean
+}
+
+export type TurmaProfessorUpsertWithWhereUniqueWithoutDisciplinaInput = {
+  where: Prisma.TurmaProfessorWhereUniqueInput
+  update: Prisma.XOR<Prisma.TurmaProfessorUpdateWithoutDisciplinaInput, Prisma.TurmaProfessorUncheckedUpdateWithoutDisciplinaInput>
+  create: Prisma.XOR<Prisma.TurmaProfessorCreateWithoutDisciplinaInput, Prisma.TurmaProfessorUncheckedCreateWithoutDisciplinaInput>
+}
+
+export type TurmaProfessorUpdateWithWhereUniqueWithoutDisciplinaInput = {
+  where: Prisma.TurmaProfessorWhereUniqueInput
+  data: Prisma.XOR<Prisma.TurmaProfessorUpdateWithoutDisciplinaInput, Prisma.TurmaProfessorUncheckedUpdateWithoutDisciplinaInput>
+}
+
+export type TurmaProfessorUpdateManyWithWhereWithoutDisciplinaInput = {
+  where: Prisma.TurmaProfessorScalarWhereInput
+  data: Prisma.XOR<Prisma.TurmaProfessorUpdateManyMutationInput, Prisma.TurmaProfessorUncheckedUpdateManyWithoutDisciplinaInput>
 }
 
 export type TurmaProfessorCreateManyFuncionarioInput = {
   id?: number
   turmaId: number
+  disciplinaId: number
 }
 
 export type TurmaProfessorUpdateWithoutFuncionarioInput = {
   turma?: Prisma.TurmaUpdateOneRequiredWithoutProfessoresNestedInput
+  disciplina?: Prisma.DisciplinaUpdateOneRequiredWithoutTurmaProfessoresNestedInput
   chamadas?: Prisma.ChamadaUpdateManyWithoutTurmaProfessorNestedInput
 }
 
 export type TurmaProfessorUncheckedUpdateWithoutFuncionarioInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   turmaId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.IntFieldUpdateOperationsInput | number
   chamadas?: Prisma.ChamadaUncheckedUpdateManyWithoutTurmaProfessorNestedInput
 }
 
 export type TurmaProfessorUncheckedUpdateManyWithoutFuncionarioInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   turmaId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type TurmaProfessorCreateManyTurmaInput = {
   id?: number
   funcionarioId: number
+  disciplinaId: number
 }
 
 export type TurmaProfessorUpdateWithoutTurmaInput = {
   funcionario?: Prisma.FuncionarioUpdateOneRequiredWithoutTurmasNestedInput
+  disciplina?: Prisma.DisciplinaUpdateOneRequiredWithoutTurmaProfessoresNestedInput
   chamadas?: Prisma.ChamadaUpdateManyWithoutTurmaProfessorNestedInput
 }
 
 export type TurmaProfessorUncheckedUpdateWithoutTurmaInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.IntFieldUpdateOperationsInput | number
   chamadas?: Prisma.ChamadaUncheckedUpdateManyWithoutTurmaProfessorNestedInput
 }
 
 export type TurmaProfessorUncheckedUpdateManyWithoutTurmaInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  disciplinaId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type TurmaProfessorCreateManyDisciplinaInput = {
+  id?: number
+  turmaId: number
+  funcionarioId: number
+}
+
+export type TurmaProfessorUpdateWithoutDisciplinaInput = {
+  turma?: Prisma.TurmaUpdateOneRequiredWithoutProfessoresNestedInput
+  funcionario?: Prisma.FuncionarioUpdateOneRequiredWithoutTurmasNestedInput
+  chamadas?: Prisma.ChamadaUpdateManyWithoutTurmaProfessorNestedInput
+}
+
+export type TurmaProfessorUncheckedUpdateWithoutDisciplinaInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  turmaId?: Prisma.IntFieldUpdateOperationsInput | number
+  funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  chamadas?: Prisma.ChamadaUncheckedUpdateManyWithoutTurmaProfessorNestedInput
+}
+
+export type TurmaProfessorUncheckedUpdateManyWithoutDisciplinaInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  turmaId?: Prisma.IntFieldUpdateOperationsInput | number
   funcionarioId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -643,8 +796,10 @@ export type TurmaProfessorSelect<ExtArgs extends runtime.Types.Extensions.Intern
   id?: boolean
   turmaId?: boolean
   funcionarioId?: boolean
+  disciplinaId?: boolean
   turma?: boolean | Prisma.TurmaDefaultArgs<ExtArgs>
   funcionario?: boolean | Prisma.FuncionarioDefaultArgs<ExtArgs>
+  disciplina?: boolean | Prisma.DisciplinaDefaultArgs<ExtArgs>
   chamadas?: boolean | Prisma.TurmaProfessor$chamadasArgs<ExtArgs>
   _count?: boolean | Prisma.TurmaProfessorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["turmaProfessor"]>
@@ -653,38 +808,46 @@ export type TurmaProfessorSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   id?: boolean
   turmaId?: boolean
   funcionarioId?: boolean
+  disciplinaId?: boolean
   turma?: boolean | Prisma.TurmaDefaultArgs<ExtArgs>
   funcionario?: boolean | Prisma.FuncionarioDefaultArgs<ExtArgs>
+  disciplina?: boolean | Prisma.DisciplinaDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["turmaProfessor"]>
 
 export type TurmaProfessorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   turmaId?: boolean
   funcionarioId?: boolean
+  disciplinaId?: boolean
   turma?: boolean | Prisma.TurmaDefaultArgs<ExtArgs>
   funcionario?: boolean | Prisma.FuncionarioDefaultArgs<ExtArgs>
+  disciplina?: boolean | Prisma.DisciplinaDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["turmaProfessor"]>
 
 export type TurmaProfessorSelectScalar = {
   id?: boolean
   turmaId?: boolean
   funcionarioId?: boolean
+  disciplinaId?: boolean
 }
 
-export type TurmaProfessorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "turmaId" | "funcionarioId", ExtArgs["result"]["turmaProfessor"]>
+export type TurmaProfessorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "turmaId" | "funcionarioId" | "disciplinaId", ExtArgs["result"]["turmaProfessor"]>
 export type TurmaProfessorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   turma?: boolean | Prisma.TurmaDefaultArgs<ExtArgs>
   funcionario?: boolean | Prisma.FuncionarioDefaultArgs<ExtArgs>
+  disciplina?: boolean | Prisma.DisciplinaDefaultArgs<ExtArgs>
   chamadas?: boolean | Prisma.TurmaProfessor$chamadasArgs<ExtArgs>
   _count?: boolean | Prisma.TurmaProfessorCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TurmaProfessorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   turma?: boolean | Prisma.TurmaDefaultArgs<ExtArgs>
   funcionario?: boolean | Prisma.FuncionarioDefaultArgs<ExtArgs>
+  disciplina?: boolean | Prisma.DisciplinaDefaultArgs<ExtArgs>
 }
 export type TurmaProfessorIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   turma?: boolean | Prisma.TurmaDefaultArgs<ExtArgs>
   funcionario?: boolean | Prisma.FuncionarioDefaultArgs<ExtArgs>
+  disciplina?: boolean | Prisma.DisciplinaDefaultArgs<ExtArgs>
 }
 
 export type $TurmaProfessorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -692,12 +855,14 @@ export type $TurmaProfessorPayload<ExtArgs extends runtime.Types.Extensions.Inte
   objects: {
     turma: Prisma.$TurmaPayload<ExtArgs>
     funcionario: Prisma.$FuncionarioPayload<ExtArgs>
+    disciplina: Prisma.$DisciplinaPayload<ExtArgs>
     chamadas: Prisma.$ChamadaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     turmaId: number
     funcionarioId: number
+    disciplinaId: number
   }, ExtArgs["result"]["turmaProfessor"]>
   composites: {}
 }
@@ -1094,6 +1259,7 @@ export interface Prisma__TurmaProfessorClient<T, Null = never, ExtArgs extends r
   readonly [Symbol.toStringTag]: "PrismaPromise"
   turma<T extends Prisma.TurmaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TurmaDefaultArgs<ExtArgs>>): Prisma.Prisma__TurmaClient<runtime.Types.Result.GetResult<Prisma.$TurmaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   funcionario<T extends Prisma.FuncionarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FuncionarioDefaultArgs<ExtArgs>>): Prisma.Prisma__FuncionarioClient<runtime.Types.Result.GetResult<Prisma.$FuncionarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  disciplina<T extends Prisma.DisciplinaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DisciplinaDefaultArgs<ExtArgs>>): Prisma.Prisma__DisciplinaClient<runtime.Types.Result.GetResult<Prisma.$DisciplinaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   chamadas<T extends Prisma.TurmaProfessor$chamadasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TurmaProfessor$chamadasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChamadaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1127,6 +1293,7 @@ export interface TurmaProfessorFieldRefs {
   readonly id: Prisma.FieldRef<"TurmaProfessor", 'Int'>
   readonly turmaId: Prisma.FieldRef<"TurmaProfessor", 'Int'>
   readonly funcionarioId: Prisma.FieldRef<"TurmaProfessor", 'Int'>
+  readonly disciplinaId: Prisma.FieldRef<"TurmaProfessor", 'Int'>
 }
     
 

@@ -1221,7 +1221,8 @@ export type SalaProfessorScalarFieldEnum = (typeof SalaProfessorScalarFieldEnum)
 export const TurmaProfessorScalarFieldEnum = {
   id: 'id',
   turmaId: 'turmaId',
-  funcionarioId: 'funcionarioId'
+  funcionarioId: 'funcionarioId',
+  disciplinaId: 'disciplinaId'
 } as const
 
 export type TurmaProfessorScalarFieldEnum = (typeof TurmaProfessorScalarFieldEnum)[keyof typeof TurmaProfessorScalarFieldEnum]
@@ -1245,7 +1246,6 @@ export const DisciplinaScalarFieldEnum = {
   id: 'id',
   nome: 'nome',
   cargaHoraria: 'cargaHoraria',
-  professorNome: 'professorNome',
   descricao: 'descricao',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

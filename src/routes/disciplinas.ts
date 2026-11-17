@@ -7,7 +7,6 @@ const router = Router()
 const disciplinaSchema = z.object({
   nome: z.string().trim().min(1, "Nome da disciplina é obrigatório").max(100),
   cargaHoraria: z.string().trim().max(20).optional(),
-  professorNome: z.string().trim().max(100).optional(),
   descricao: z.string().trim().max(10000).optional(),
 })
 
@@ -92,7 +91,7 @@ router.delete("/:id", async (req, res) => {
   try {
     const disciplina = await prisma.disciplina.findUnique({
       where: { id },
-      select: { id: true, _count: { select: { chamadas: true } } },
+      select: { id: true, _count: { select: { chamadas: true, turmaProfessores: true } } },
     })
     if (!disciplina) {
       res.status(404).json({ erro: "Disciplina não encontrada" })
@@ -102,6 +101,12 @@ router.delete("/:id", async (req, res) => {
     if (disciplina._count.chamadas > 0) {
       res.status(409).json({
         erro: "A disciplina não pode ser excluída porque possui chamadas registradas",
+      })
+      return
+    }
+    if (disciplina._count.turmaProfessores > 0) {
+      res.status(409).json({
+        erro: "A disciplina não pode ser excluída porque possui professores vinculados em turmas",
       })
       return
     }
