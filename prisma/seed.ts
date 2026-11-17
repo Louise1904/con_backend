@@ -230,6 +230,7 @@ async function main() {
     await prisma.turma.deleteMany();
     await prisma.funcionario.deleteMany();
     await prisma.sala.deleteMany();
+    await prisma.disciplina.deleteMany();
     await prisma.admin.deleteMany();
 
     const adminsCadastrados = await prisma.admin.createManyAndReturn({
@@ -276,10 +277,15 @@ async function main() {
       throw new Error("Turmas esperadas nao foram criadas corretamente.");
     }
 
+    const disciplina = await prisma.disciplina.create({
+      data: { nome: "Linguagem e Comunicacao", cargaHoraria: "80h" },
+    });
+    console.log("1 Disciplina(s) cadastradas...");
+
     const turmaProfessorCriados = await prisma.turmaProfessor.createManyAndReturn({
       data: [
-        { turmaId: turmaJardimA.id, funcionarioId: professorAna.id },
-        { turmaId: turmaJardimB.id, funcionarioId: professorBruno.id },
+        { turmaId: turmaJardimA.id, funcionarioId: professorAna.id, disciplinaId: disciplina.id },
+        { turmaId: turmaJardimB.id, funcionarioId: professorBruno.id, disciplinaId: disciplina.id },
       ],
     });
     console.log(`${turmaProfessorCriados.length} vinculo(s) Turma x Professor cadastrados...`);
@@ -341,6 +347,7 @@ async function main() {
           presente: randomInt(0, 100) > 20,
           alunoId: aluno.id,
           turmaId: aluno.turmaId,
+          disciplinaId: disciplina.id,
           funcionarioId,
           turmaProfessorId: turmaProfessor.id,
         });

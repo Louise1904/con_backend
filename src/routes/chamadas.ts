@@ -98,12 +98,16 @@ router.get("/exportar", async (req, res) => {
   const diasNoMes = new Date(Date.UTC(ano, mesNumero, 0)).getUTCDate()
 
   try {
-    const [turma, disciplina] = await Promise.all([
+    const [turma, disciplina, responsavel] = await Promise.all([
       prisma.turma.findUnique({
         where: { id: turmaId },
         include: { alunos: { orderBy: { nome: "asc" } } },
       }),
       prisma.disciplina.findUnique({ where: { id: disciplinaId } }),
+      prisma.turmaProfessor.findUnique({
+        where: { turmaId_disciplinaId: { turmaId, disciplinaId } },
+        include: { funcionario: { select: { nome: true } } },
+      }),
     ])
 
     if (!turma) {
@@ -166,8 +170,8 @@ router.get("/exportar", async (req, res) => {
         nome: disciplina.nome,
         cargaHoraria: disciplina.cargaHoraria,
       },
-      // Quem fez a chamada; se ainda não houver, usa o professor da disciplina
-      professor: registros[0]?.funcionario.nome ?? disciplina.professorNome ?? null,
+      // Professor responsável pela disciplina na turma; sem vínculo, quem fez a chamada
+      professor: responsavel?.funcionario.nome ?? registros[0]?.funcionario.nome ?? null,
       mes,
       diasNoMes,
       diasComChamada,
@@ -224,12 +228,21 @@ router.post("/", async (req, res) => {
       return
     }
 
-    // Cria o vínculo Turma x Professor automaticamente, se ainda não existir
+    // Cada disciplina, numa turma, tem um professor responsável.
+    // Se ainda não houver, quem faz a primeira chamada passa a ser o responsável.
     const turmaProfessor = await prisma.turmaProfessor.upsert({
-      where: { turmaId_funcionarioId: { turmaId, funcionarioId } },
+      where: { turmaId_disciplinaId: { turmaId, disciplinaId } },
       update: {},
-      create: { turmaId, funcionarioId },
+      create: { turmaId, disciplinaId, funcionarioId },
+      include: { funcionario: { select: { nome: true } } },
     })
+
+    if (turmaProfessor.funcionarioId !== funcionarioId) {
+      res.status(403).json({
+        erro: `${disciplina.nome} na turma ${turma.nome} é responsabilidade de ${turmaProfessor.funcionario.nome}`,
+      })
+      return
+    }
 
     const dataChamada = toDate(data)
 

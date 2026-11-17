@@ -148,14 +148,17 @@ model TurmaProfessor {
 
   turmaId       Int
   funcionarioId Int
+  disciplinaId  Int
 
   turma       Turma       @relation(fields: [turmaId], references: [id])
   funcionario Funcionario @relation(fields: [funcionarioId], references: [id])
+  disciplina  Disciplina  @relation(fields: [disciplinaId], references: [id])
 
-  // Chamadas realizadas nessa relação Turma + Professor
+  // Chamadas realizadas nessa relação Turma + Disciplina + Professor
   chamadas Chamada[]
 
-  @@unique([turmaId, funcionarioId])
+  // Cada disciplina, numa turma, tem UM professor responsável
+  @@unique([turmaId, disciplinaId])
   @@map("turmas_professores")
 }
 
@@ -177,14 +180,14 @@ model Chamada {
   turma   Turma @relation(fields: [turmaId], references: [id])
 
   // Disciplina da chamada
-  disciplinaId Int?
-  disciplina   Disciplina? @relation(fields: [disciplinaId], references: [id])
+  disciplinaId Int
+  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])
 
-  // Professor responsável pela chamada
+  // Professor que realizou a chamada
   funcionarioId Int
   funcionario   Funcionario @relation(fields: [funcionarioId], references: [id])
 
-  // Relação específica entre professor e turma
+  // Vínculo Turma + Disciplina + Professor em que a chamada foi feita
   turmaProfessorId Int
   turmaProfessor   TurmaProfessor @relation(fields: [turmaProfessorId], references: [id])
 
@@ -198,8 +201,10 @@ model Disciplina {
   id            Int      @id @default(autoincrement())
   nome          String   @db.VarChar(100)
   cargaHoraria  String?  @db.VarChar(20)
-  professorNome String?  @db.VarChar(100)
   descricao     String?  @db.Text
+
+  // Professores que lecionam esta disciplina (um por turma, via TurmaProfessor)
+  turmaProfessores TurmaProfessor[]
 
   // Chamadas feitas nesta disciplina
   chamadas      Chamada[]

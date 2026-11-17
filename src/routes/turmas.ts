@@ -15,22 +15,18 @@ const turmaSchema = z.object({
 
 const turmaUpdateSchema = turmaSchema.partial()
 
+const vinculoSchema = z.object({
+  disciplinaId: z.number().int("disciplinaId deve ser um número inteiro").positive(),
+  funcionarioId: z.number().int("funcionarioId deve ser um número inteiro").positive(),
+})
+
 const turmaInclude = {
   sala: true,
   alunos: true,
   professores: {
     include: {
-      funcionario: {
-        select: {
-          id: true,
-          nome: true,
-          cpf: true,
-          matricula: true,
-          cargo: true,
-          telefone: true,
-          email: true,
-        },
-      },
+      funcionario: { select: { id: true, nome: true } },
+      disciplina: { select: { id: true, nome: true } },
     },
   },
   _count: {
@@ -233,6 +229,102 @@ router.delete("/:id", async (req, res) => {
     res.status(200).json(turmaExcluida)
   } catch (error) {
     res.status(500).json({ erro: "Não foi possível excluir a turma", detalhe: error })
+  }
+})
+
+// POST /api/turmas/:turmaId/professores
+// Vincula um professor a uma disciplina dentro da turma
+router.post("/:turmaId/professores", async (req, res) => {
+  const turmaId = parseId(req.params.turmaId)
+  if (!turmaId) {
+    res.status(400).json({ erro: "turmaId deve ser um número inteiro positivo" })
+    return
+  }
+
+  const valida = vinculoSchema.safeParse(req.body)
+  if (!valida.success) {
+    res.status(400).json({ erro: valida.error.flatten() })
+    return
+  }
+
+  const { disciplinaId, funcionarioId } = valida.data
+
+  try {
+    const [turma, disciplina, funcionario] = await Promise.all([
+      prisma.turma.findUnique({ where: { id: turmaId } }),
+      prisma.disciplina.findUnique({ where: { id: disciplinaId } }),
+      prisma.funcionario.findUnique({ where: { id: funcionarioId } }),
+    ])
+
+    if (!turma) {
+      res.status(404).json({ erro: "Turma não encontrada" })
+      return
+    }
+    if (!disciplina) {
+      res.status(404).json({ erro: "Disciplina não encontrada" })
+      return
+    }
+    if (!funcionario) {
+      res.status(404).json({ erro: "Professor(a) não encontrado(a)" })
+      return
+    }
+
+    const existente = await prisma.turmaProfessor.findUnique({
+      where: { turmaId_disciplinaId: { turmaId, disciplinaId } },
+    })
+    if (existente) {
+      res.status(409).json({
+        erro: "Essa disciplina já tem um professor vinculado nessa turma. Remova o vínculo atual antes de trocar.",
+      })
+      return
+    }
+
+    const vinculo = await prisma.turmaProfessor.create({
+      data: { turmaId, disciplinaId, funcionarioId },
+      include: {
+        disciplina: { select: { id: true, nome: true } },
+        funcionario: { select: { id: true, nome: true } },
+      },
+    })
+
+    res.status(201).json(vinculo)
+  } catch (error) {
+    res.status(500).json({ erro: "Não foi possível vincular o professor", detalhe: error })
+  }
+})
+
+// DELETE /api/turmas/:turmaId/professores/:vinculoId
+// Remove o vínculo, liberando a disciplina pra outro professor nessa turma
+router.delete("/:turmaId/professores/:vinculoId", async (req, res) => {
+  const turmaId = parseId(req.params.turmaId)
+  const vinculoId = parseId(req.params.vinculoId)
+  if (!turmaId || !vinculoId) {
+    res.status(400).json({ erro: "turmaId e vinculoId devem ser números inteiros positivos" })
+    return
+  }
+
+  try {
+    const vinculo = await prisma.turmaProfessor.findUnique({
+      where: { id: vinculoId },
+      include: { _count: { select: { chamadas: true } } },
+    })
+
+    if (!vinculo || vinculo.turmaId !== turmaId) {
+      res.status(404).json({ erro: "Vínculo não encontrado nessa turma" })
+      return
+    }
+
+    if (vinculo._count.chamadas > 0) {
+      res.status(409).json({
+        erro: "Não é possível remover esse vínculo porque já existem chamadas registradas com ele",
+      })
+      return
+    }
+
+    await prisma.turmaProfessor.delete({ where: { id: vinculoId } })
+    res.status(204).send()
+  } catch (error) {
+    res.status(500).json({ erro: "Não foi possível remover o vínculo", detalhe: error })
   }
 })
 
